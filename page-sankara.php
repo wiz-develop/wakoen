@@ -34,7 +34,7 @@ Template Name:サンカラ
 
 <div id="page-sankara">
 	<div class="mod-link position-fixed">
-		<a href="#evaluation-results">自己評価結果等を公開しました<i class="ps-2 fa-solid fa-circle-down"></i></a>
+		<a href="#evaluation-results">自己評価結果等を公開<i class="ps-2 fa-solid fa-circle-down"></i></a>
 	</div>
 	<div class="mod-header">
 		<div class="nav-content d-flex justify-content-between align-items-center">
