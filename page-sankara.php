@@ -34,7 +34,7 @@ Template Name:サンカラ
 
 <div id="page-sankara">
 	<div class="mod-link position-fixed">
-		<a href="#evaluation-results">自己評価結果等を公開<i class="ps-2 fa-solid fa-circle-down"></i></a>
+		<a href="#support-program">支援プログラム公開！<i class="ps-2 fa-solid fa-circle-down"></i></a>
 	</div>
 	<div class="mod-header">
 		<div class="nav-content d-flex justify-content-between align-items-center">
@@ -196,7 +196,7 @@ Template Name:サンカラ
 			</div>
 		</section>
 		<section id="support-program">
-			<div class="content-item" id="evaluation-results">
+			<div class="content-item mb-5 pb-5" id="evaluation-results">
 				<h2 class="content-tit">自己評価結果等の公表</h2>
 				<div class="content-about">
 					<p class="mb-0">令和8年8月31日 公表</p>
