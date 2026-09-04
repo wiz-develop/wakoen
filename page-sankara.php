@@ -1,0 +1,269 @@
+<?php
+/*
+Template Name:サンカラ
+*/
+?>
+<style>
+	body {
+		padding-top: 3rem;
+	}
+	@media (max-width: 990px) {
+		body {
+			padding-top: 0;
+		}
+	}
+	#wrapper {
+		background-color: white;
+	}
+	.site-header,.site-footer,.grecaptcha-badge {
+		display: none;
+	}
+	.header-english a {
+		font-family: 'Arial', 'Helvetica', sans-serif;
+	}
+	#content div {
+		--bs-gutter-x: 0;
+	}
+</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p&family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" type="text/css" />```
+<?php get_header(); ?>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+<div id="page-sankara">
+	<div class="mod-link position-fixed">
+		<a href="#evaluation-results">自己評価結果等を公開しました<i class="ps-2 fa-solid fa-circle-down"></i></a>
+	</div>
+	<div class="mod-header">
+		<div class="nav-content d-flex justify-content-between align-items-center">
+			<div class="site-logo">
+				<img src="<?php echo get_stylesheet_directory_uri() ; ?>/assets/images/sankara/logo.png" alt="児童発達支援事業所 和光園 サンカラ">
+			</div>
+			<div class="site-menu">
+				<button class="sankara-toggler d-lg-none" type="button" aria-label="メニューを開く">
+					<span class="sankara-icon"></span>
+				</button>
+
+				<div class="sankara-collapse d-lg-none" id="sankaraMenu">
+					<ul class="sankara-nav mb-0">
+						<li><a href="#about">和光園 サンカラについて</a></li>
+						<li><a href="#support"><i class="fa-solid fa-circle-question"></i> サポート内容</a></li>
+						<li><a href="#message"><i class="fa-solid fa-message"></i> 保護者様へのメッセージ</a></li>
+						<li><a href="#access"><i class="fa-solid fa-location-dot"></i> アクセス</a></li>
+						<li><a href="#contact"><i class="fa-solid fa-phone"></i> お問い合わせ</a></li>
+					</ul>
+				</div>
+
+				<ul class="d-none d-lg-flex list-unstyled mb-0">
+					<li><a href="#about">和光園 サンカラについて</a></li>
+					<li><a href="#support">サポート内容</a></li>
+					<li><a href="#message">保護者様へのメッセージ</a></li>
+					<li><a href="#access">アクセス</a></li>
+					<li><a href="#contact">お問い合わせ</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="main-visual">
+			<?php if ( wp_is_mobile() ) : ?>
+				<img class="w-100" src="<?php echo get_stylesheet_directory_uri() ; ?>/assets/images/sankara/sankara-main_sp.jpg">
+			<?php else: ?>
+				<img class="w-100" src="<?php echo get_stylesheet_directory_uri() ; ?>/assets/images/sankara/sankara-main_pc.jpg">
+			<?php endif; ?>
+		</div>
+	</div>
+	<div class="mod-body">
+		<section class="event-info">
+			<div class="container">
+				<div class="content-item row">
+					<div class="content-item__about">
+						<h2 class="content-tit">児童発達支援事業所 <br class="sp-br">和光園サンカラ <br class="sp-br">見学会のご案内</h2>
+						<div class="content-about">
+							<p class="mb-4">以下の日程にて「和光園サンカラ」の見学会を実施いたします。<br>ご希望の方は下記の電話番号までお電話ください。</p>
+							<div class="content-about__txt mb-4">
+								<p class="mb-0">【実施日】</p>
+								<ul class="mb-0">
+									<li class="mb-0">9月12日（金）11：00〜12：30</li>
+									<li class="mb-0">9月16日（火）15：00〜16：30</li>
+								</ul>
+								<p class="mb-0">※個別相談会も実施します。</p>
+							</div>
+							<div class="content-about__txt">
+								<p class="mb-0">【電話番号】<br>06（6690）8890</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section>
+			<div class="content-item row">
+				<div class="content-item__about col-12 col-lg-7">
+					<h2 class="content-tit">サンカラとは</h2>
+					<div class="content-about">
+						<p class="mb-0">
+							「和光園サンカラ」は、認定こども園内に併設された発達支援の場です。<br>
+							「サンカラ」という名前は、サンスクリット語で“天からの恵み”を意味し、子どもたち一人ひとりの可能性を大切に育てたいという願いを込めています。<br>
+							園と連携しながら、安心できる環境の中で専門的な支援を受けられることが特徴です。
+						</p>
+					</div>
+				</div>
+				<div class="content-item__img col-12 col-lg-5">
+					<img class="w-100" src="<?php echo get_stylesheet_directory_uri() ; ?>/assets/images/sankara/sankara-img.jpg">
+				</div>
+			</div>
+		</section>
+		<section id="about">
+			<div class="content-item position-relative">
+				<h2 class="content-tit">和光園 <br class="sp-br">サンカラについて</h2>
+				<div class="content-about">
+					<p class="mb-0">
+						認定こども園に併設しているため、支援計画の共有や職員間の連携がスムーズで、保護者の送迎負担もありません。
+						感覚統合運動を取り入れ、体と心の発達を支えながら、身辺の自立やコミュニケーション力を育んでいきます。<br>
+						子どもたちが「できた！」という喜びを重ね、ご家庭とともに成長を分かち合える場所を目指しています。
+					</p>
+					<h3 class="fw-bold mt-5">特徴</h3>
+					<ul>
+						<li>感覚統合運動を取り入れ、体の発達と感覚の調整をサポート</li>
+						<li>認定こども園との連携による一体的な支援 —職員同士が連携し、計画的に支援</li>
+						<li>送迎不要—園内に併設しているため、保護者の負担を軽減</li>
+						<li>生活自立の支援—着替え・食事・排泄など、毎日の「できた！」を大切に</li>
+						<li>コミュニケーション支援—遊びや集団活動を通してことばや気持ちを伝える力を育む</li>
+					</ul>
+				</div>
+				<div class="content-img position-absolute">
+					<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/sankara/star_seven.png">
+				</div>
+			</div>
+		</section>
+		<section id="support">
+			<div class="content-item position-relative">
+				<h2 class="content-tit">サポート内容</h2>
+				<div class="content-about">
+					<ul>
+						<li>個別支援計画に沿った活動</li>
+						<li>遊びを通じた運動・感覚統合</li>
+						<li>日常生活動作（食事・着替え等）の練習</li>
+						<li>生活自立の支援—着替え・食事・排泄など、毎日の「できた！」を大切に</li>
+						<li>集団での遊びや活動を通して、お友だちとのコミュニケーションを育む</li>
+					</ul>
+					<p class="mb-0">子どもたちの発達段階に合わせ、無理なく楽しみながら取り組めるように工夫しています。</p>
+				</div>
+				<div class="content-img position-absolute">
+					<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/sankara/teacher.png">
+				</div>
+			</div>
+		</section>
+		<section id="message">
+			<div class="content-item">
+				<h2 class="content-tit">保護者様への<br class="sp-br">メッセージ</h2>
+				<div class="content-about">
+					<p class="mb-0">和光園サンカラは、子どもたちが「自分らしく成長する喜び」を感じ、また、子どもたちの「できた！」を一緒に喜び、ご家族と共にその歩みを喜びあえる場所を目指しています。<br>安心して通っていただける環境を整えていますので、どうぞお気軽にご相談ください。</p>
+				</div>
+			</div>
+		</section>
+		<section id="access">
+			<div class="content-item">
+				<h2 class="content-tit">アクセス</h2>
+				<div class="content-about row px-0">
+					<div class="content-about__address col-12 col-lg-5">
+						<div class="content-about__address__item mb-5">
+							<h4 class="fw-bold mb-1 ps-3">住所</h4>
+							<p class="mb-0">〒553-0002<br>大阪市福島区鷺洲2丁目14-1</p>
+							<h5>児童発達支援事業所 和光園 サンカラ</h5>
+						</div>
+						<div class="content-about__address__item">
+							<h4 class="fw-bold mb-3 ps-3">アクセス</h4>
+							<h5 class="mb-0 fw-bold"><i class="fa-solid fa-train-subway pe-2"></i>電車でお越しの方</h5>
+							<ul class="mb-5">
+								<li>JR大阪環状線「福島駅」：徒歩約8分（約550 m）</li>
+								<li>JR東西線「新福島駅」：徒歩約10分（約669 m）</li>
+								<li>阪神本線「阪神福島駅」：徒歩約11分（約763 m）</li>
+							</ul>
+							<h5 class="mb-0 fw-bold"><i class="fa-solid fa-bus pe-2"></i>バスでお越しの方</h5>
+							<ul class="mb-5">
+								<li>「鷺洲」バス停：徒歩約3分（約219 m）</li>
+							</ul>
+							<h5 class="mb-0 fw-bold"><i class="fa-solid fa-bus pe-2"></i>送迎について</h5>
+							<p class="mb-0">サンカラは和光園内に併設されているため、送迎は不要です。</p>
+						</div>
+					</div>
+					<div class="content-about__gmap col-12 col-lg-7">
+						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3280.2560430331196!2d135.47998871117127!3d34.69872138320637!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6000e6640bd06de7%3A0x1dbf1454d4716370!2z44CSNTUzLTAwMDIg5aSn6Ziq5bqc5aSn6Ziq5biC56aP5bO25Yy66be65rSy77yS5LiB55uu77yR77yU4oiS77yRIOWSjOWFieWckg!5e0!3m2!1sja!2sjp!4v1755847182538!5m2!1sja!2sjp" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section id="support-program">
+			<div class="content-item" id="evaluation-results">
+				<h2 class="content-tit">自己評価結果等の公表</h2>
+				<div class="content-about">
+					<p class="mb-0">令和8年8月31日 公表</p>
+					<p class="mb-0">自己評価結果等について、以下の資料よりご覧ください。</p>
+					<div class="content-about__link">
+						<a class="content-about__link__item" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/pdf/sankara-evaluation-child-development-2026.pdf" target="_blank" rel="noopener noreferrer"><span>児童発達支援</span><i class="ps-2 fa-solid fa-file-pdf"></i></a>
+						<a class="content-about__link__item" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/pdf/sankara-evaluation-after-school-2026.pdf" target="_blank" rel="noopener noreferrer"><span>放課後等デイサービス</span><i class="ps-2 fa-solid fa-file-pdf"></i></a>
+						<a class="content-about__link__item" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/pdf/sankara-evaluation-nursery-visit-2026.pdf" target="_blank" rel="noopener noreferrer"><span>保育所等訪問支援</span><i class="ps-2 fa-solid fa-file-pdf"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="content-item">
+				<h2 class="content-tit">支援プログラムについて</h2>
+				<div class="content-about">
+					<p class="mb-0">支援プログラムについては以下資料よりご覧ください。</p>
+					<div class="content-about__link">
+						<a class="content-about__link__item" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/pdf/sien_child-development.pdf" target="_blank"><span>児童発達支援</span><i class="ps-2 fa-solid fa-file-pdf"></i></a>
+						<a class="content-about__link__item" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/pdf/sien_after-school.pdf" target="_blank"><span>放課後等デイサービス</span><i class="ps-2 fa-solid fa-file-pdf"></i></a>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section id="contact">
+			<div class="content-item position-relative">
+				<h2 class="content-tit">お問い合わせ</h2>
+				<div class="content-about">
+					<p class="mb-0">ご利用に関するご相談・お問い合わせは電話またはメールよりお気軽にご連絡ください。</p>
+					<div class="content-about__number mt-5">
+						<p class="fw-bold mb-3 ps-3 fs-1"><i class="fa-solid fa-phone-volume pe-2"></i>06-6690-8890</p>
+						<p class="fw-bold mb-3 ps-3 fs-1"><i class="fa-solid fa-envelope pe-2"></i>sankara@wakoen.ed.jp</p>
+					</div>
+				</div>
+				<div class="content-img star position-absolute">
+					<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/sankara/star_seven.png">
+				</div>
+				<div class="content-img tree position-absolute">
+					<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/sankara/tree_three.png">
+				</div>
+			</div>
+		</section>
+	</div>
+	<div class="mod-footer py-2">
+		<div class="mod-footer__nav">
+			<a href="<?php echo home_url() ; ?>" target="_blank">幼保連携型認定こども園 和光園<i class="fa-solid fa-arrow-up-right-from-square ps-2"></i></a>
+		</div>
+		<p class="mb-0">©児童発達支援事業所 和光園 サンカラ ALL RIGHTS RESERVED.</p>
+	</div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const toggler = document.querySelector(".sankara-toggler");
+    const menu = document.getElementById("sankaraMenu");
+
+    toggler.addEventListener("click", function () {
+        menu.classList.toggle("active");
+        toggler.classList.toggle("active");
+    });
+
+    document.querySelectorAll(".sankara-nav a").forEach(link => {
+        link.addEventListener("click", () => {
+            menu.classList.remove("active");
+            toggler.classList.remove("active");
+        });
+    });
+});
+</script>
+
+	
+<?php get_footer(); ?>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
