@@ -199,7 +199,6 @@ Template Name:サンカラ
 			<div class="content-item mb-5 pb-5" id="evaluation-results">
 				<h2 class="content-tit">自己評価結果等の公表</h2>
 				<div class="content-about">
-					<p class="mb-0">令和8年8月31日 公表</p>
 					<p class="mb-0">自己評価結果等について、以下の資料よりご覧ください。</p>
 					<div class="content-about__link">
 						<a class="content-about__link__item" href="<?php echo get_stylesheet_directory_uri(); ?>/assets/pdf/sankara-evaluation-child-development-2026.pdf" target="_blank" rel="noopener noreferrer"><span>児童発達支援</span><i class="ps-2 fa-solid fa-file-pdf"></i></a>
