@@ -19,21 +19,48 @@ namespace WPMailSMTP\Vendor\Google\Service\Gmail;
 
 class Label extends \WPMailSMTP\Vendor\Google\Model
 {
-    protected $colorType = \WPMailSMTP\Vendor\Google\Service\Gmail\LabelColor::class;
+    protected $colorType = LabelColor::class;
     protected $colorDataType = '';
+    /**
+     * @var string
+     */
     public $id;
+    /**
+     * @var string
+     */
     public $labelListVisibility;
+    /**
+     * @var string
+     */
     public $messageListVisibility;
+    /**
+     * @var int
+     */
     public $messagesTotal;
+    /**
+     * @var int
+     */
     public $messagesUnread;
+    /**
+     * @var string
+     */
     public $name;
+    /**
+     * @var int
+     */
     public $threadsTotal;
+    /**
+     * @var int
+     */
     public $threadsUnread;
+    /**
+     * @var string
+     */
     public $type;
     /**
      * @param LabelColor
      */
-    public function setColor(\WPMailSMTP\Vendor\Google\Service\Gmail\LabelColor $color)
+    public function setColor(LabelColor $color)
     {
         $this->color = $color;
     }
@@ -44,78 +71,132 @@ class Label extends \WPMailSMTP\Vendor\Google\Model
     {
         return $this->color;
     }
+    /**
+     * @param string
+     */
     public function setId($id)
     {
         $this->id = $id;
     }
+    /**
+     * @return string
+     */
     public function getId()
     {
         return $this->id;
     }
+    /**
+     * @param string
+     */
     public function setLabelListVisibility($labelListVisibility)
     {
         $this->labelListVisibility = $labelListVisibility;
     }
+    /**
+     * @return string
+     */
     public function getLabelListVisibility()
     {
         return $this->labelListVisibility;
     }
+    /**
+     * @param string
+     */
     public function setMessageListVisibility($messageListVisibility)
     {
         $this->messageListVisibility = $messageListVisibility;
     }
+    /**
+     * @return string
+     */
     public function getMessageListVisibility()
     {
         return $this->messageListVisibility;
     }
+    /**
+     * @param int
+     */
     public function setMessagesTotal($messagesTotal)
     {
         $this->messagesTotal = $messagesTotal;
     }
+    /**
+     * @return int
+     */
     public function getMessagesTotal()
     {
         return $this->messagesTotal;
     }
+    /**
+     * @param int
+     */
     public function setMessagesUnread($messagesUnread)
     {
         $this->messagesUnread = $messagesUnread;
     }
+    /**
+     * @return int
+     */
     public function getMessagesUnread()
     {
         return $this->messagesUnread;
     }
+    /**
+     * @param string
+     */
     public function setName($name)
     {
         $this->name = $name;
     }
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
+    /**
+     * @param int
+     */
     public function setThreadsTotal($threadsTotal)
     {
         $this->threadsTotal = $threadsTotal;
     }
+    /**
+     * @return int
+     */
     public function getThreadsTotal()
     {
         return $this->threadsTotal;
     }
+    /**
+     * @param int
+     */
     public function setThreadsUnread($threadsUnread)
     {
         $this->threadsUnread = $threadsUnread;
     }
+    /**
+     * @return int
+     */
     public function getThreadsUnread()
     {
         return $this->threadsUnread;
     }
+    /**
+     * @param string
+     */
     public function setType($type)
     {
         $this->type = $type;
     }
+    /**
+     * @return string
+     */
     public function getType()
     {
         return $this->type;
     }
 }
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\WPMailSMTP\Vendor\Google\Service\Gmail\Label::class, 'WPMailSMTP\\Vendor\\Google_Service_Gmail_Label');
+\class_alias(Label::class, 'WPMailSMTP\\Vendor\\Google_Service_Gmail_Label');

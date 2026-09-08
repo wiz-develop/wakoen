@@ -19,15 +19,18 @@ namespace WPMailSMTP\Vendor\Google\Service\Gmail;
 
 class Filter extends \WPMailSMTP\Vendor\Google\Model
 {
-    protected $actionType = \WPMailSMTP\Vendor\Google\Service\Gmail\FilterAction::class;
+    protected $actionType = FilterAction::class;
     protected $actionDataType = '';
-    protected $criteriaType = \WPMailSMTP\Vendor\Google\Service\Gmail\FilterCriteria::class;
+    protected $criteriaType = FilterCriteria::class;
     protected $criteriaDataType = '';
+    /**
+     * @var string
+     */
     public $id;
     /**
      * @param FilterAction
      */
-    public function setAction(\WPMailSMTP\Vendor\Google\Service\Gmail\FilterAction $action)
+    public function setAction(FilterAction $action)
     {
         $this->action = $action;
     }
@@ -41,7 +44,7 @@ class Filter extends \WPMailSMTP\Vendor\Google\Model
     /**
      * @param FilterCriteria
      */
-    public function setCriteria(\WPMailSMTP\Vendor\Google\Service\Gmail\FilterCriteria $criteria)
+    public function setCriteria(FilterCriteria $criteria)
     {
         $this->criteria = $criteria;
     }
@@ -52,14 +55,20 @@ class Filter extends \WPMailSMTP\Vendor\Google\Model
     {
         return $this->criteria;
     }
+    /**
+     * @param string
+     */
     public function setId($id)
     {
         $this->id = $id;
     }
+    /**
+     * @return string
+     */
     public function getId()
     {
         return $this->id;
     }
 }
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\WPMailSMTP\Vendor\Google\Service\Gmail\Filter::class, 'WPMailSMTP\\Vendor\\Google_Service_Gmail_Filter');
+\class_alias(Filter::class, 'WPMailSMTP\\Vendor\\Google_Service_Gmail_Filter');

@@ -20,9 +20,15 @@ namespace WPMailSMTP\Vendor\Google\Service\Gmail;
 class ListMessagesResponse extends \WPMailSMTP\Vendor\Google\Collection
 {
     protected $collection_key = 'messages';
-    protected $messagesType = \WPMailSMTP\Vendor\Google\Service\Gmail\Message::class;
+    protected $messagesType = Message::class;
     protected $messagesDataType = 'array';
+    /**
+     * @var string
+     */
     public $nextPageToken;
+    /**
+     * @var string
+     */
     public $resultSizeEstimate;
     /**
      * @param Message[]
@@ -38,22 +44,34 @@ class ListMessagesResponse extends \WPMailSMTP\Vendor\Google\Collection
     {
         return $this->messages;
     }
+    /**
+     * @param string
+     */
     public function setNextPageToken($nextPageToken)
     {
         $this->nextPageToken = $nextPageToken;
     }
+    /**
+     * @return string
+     */
     public function getNextPageToken()
     {
         return $this->nextPageToken;
     }
+    /**
+     * @param string
+     */
     public function setResultSizeEstimate($resultSizeEstimate)
     {
         $this->resultSizeEstimate = $resultSizeEstimate;
     }
+    /**
+     * @return string
+     */
     public function getResultSizeEstimate()
     {
         return $this->resultSizeEstimate;
     }
 }
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\WPMailSMTP\Vendor\Google\Service\Gmail\ListMessagesResponse::class, 'WPMailSMTP\\Vendor\\Google_Service_Gmail_ListMessagesResponse');
+\class_alias(ListMessagesResponse::class, 'WPMailSMTP\\Vendor\\Google_Service_Gmail_ListMessagesResponse');

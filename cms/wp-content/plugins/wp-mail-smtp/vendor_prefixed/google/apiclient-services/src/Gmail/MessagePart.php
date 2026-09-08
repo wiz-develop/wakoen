@@ -20,19 +20,28 @@ namespace WPMailSMTP\Vendor\Google\Service\Gmail;
 class MessagePart extends \WPMailSMTP\Vendor\Google\Collection
 {
     protected $collection_key = 'parts';
-    protected $bodyType = \WPMailSMTP\Vendor\Google\Service\Gmail\MessagePartBody::class;
+    protected $bodyType = MessagePartBody::class;
     protected $bodyDataType = '';
+    /**
+     * @var string
+     */
     public $filename;
-    protected $headersType = \WPMailSMTP\Vendor\Google\Service\Gmail\MessagePartHeader::class;
+    protected $headersType = MessagePartHeader::class;
     protected $headersDataType = 'array';
+    /**
+     * @var string
+     */
     public $mimeType;
+    /**
+     * @var string
+     */
     public $partId;
-    protected $partsType = \WPMailSMTP\Vendor\Google\Service\Gmail\MessagePart::class;
+    protected $partsType = MessagePart::class;
     protected $partsDataType = 'array';
     /**
      * @param MessagePartBody
      */
-    public function setBody(\WPMailSMTP\Vendor\Google\Service\Gmail\MessagePartBody $body)
+    public function setBody(MessagePartBody $body)
     {
         $this->body = $body;
     }
@@ -43,10 +52,16 @@ class MessagePart extends \WPMailSMTP\Vendor\Google\Collection
     {
         return $this->body;
     }
+    /**
+     * @param string
+     */
     public function setFilename($filename)
     {
         $this->filename = $filename;
     }
+    /**
+     * @return string
+     */
     public function getFilename()
     {
         return $this->filename;
@@ -65,18 +80,30 @@ class MessagePart extends \WPMailSMTP\Vendor\Google\Collection
     {
         return $this->headers;
     }
+    /**
+     * @param string
+     */
     public function setMimeType($mimeType)
     {
         $this->mimeType = $mimeType;
     }
+    /**
+     * @return string
+     */
     public function getMimeType()
     {
         return $this->mimeType;
     }
+    /**
+     * @param string
+     */
     public function setPartId($partId)
     {
         $this->partId = $partId;
     }
+    /**
+     * @return string
+     */
     public function getPartId()
     {
         return $this->partId;
@@ -97,4 +124,4 @@ class MessagePart extends \WPMailSMTP\Vendor\Google\Collection
     }
 }
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\WPMailSMTP\Vendor\Google\Service\Gmail\MessagePart::class, 'WPMailSMTP\\Vendor\\Google_Service_Gmail_MessagePart');
+\class_alias(MessagePart::class, 'WPMailSMTP\\Vendor\\Google_Service_Gmail_MessagePart');
