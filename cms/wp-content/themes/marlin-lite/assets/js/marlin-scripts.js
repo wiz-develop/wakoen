@@ -119,54 +119,46 @@
         //確認画面処理
         //入力画面→確認画面
         $(document).on('click', '#confirmation', function () {
-            console.log('確認ボタンが押された');
-          
-            $('.confirm_page_submit').show();
-            $('.form_page_submit').hide();
-          
-
-            var $visitDate1 = $('[name="visit-date-1"]');
+            var $form = $(this).closest('.wpcf7-form');
+            var $visitDate1 = $form.find('[name="visit-date-1"]');
             var visitDate1 = $visitDate1.val();
-                    
-            $visitDate1.parent().find('.validation-error').remove();
 
-            if (!visitDate1) {
-                $visitDate1.addClass('error');
-                $('<p class="validation-error">必須項目に入力してください。</p>').appendTo($visitDate1.parent());
-                return;
-            } else {
+            if ($visitDate1.length) {
+                $visitDate1.parent().find('.validation-error').remove();
+
+                if (!visitDate1) {
+                    $visitDate1.addClass('error');
+                    $('<p class="validation-error">必須項目に入力してください。</p>').appendTo($visitDate1.parent());
+                    return;
+                }
+
                 $visitDate1.removeClass('error');
             }
 
-            if (!$(".wpcf7-form").valid()) {
+            if (!$form.valid()) {
                 return;
             }
+
             $('.confirm_page_submit').show();
             $('.form_page_submit').hide();
-            $('select, input[type="text"], input[type="email"], input[type="url"], input[type="tel"] ,input[type="date"],textarea').attr('readonly', true).addClass('readonly');
-            $('.checkbox-privacy, .wpcf7-checkbox, .file_attachment').addClass('none-click');
-             // チェックボックス・ラジオを無効化
-            $('input[type="checkbox"], input[type="radio"]')
-                .attr('disabled', true);
-        
-            // 見た目の無効化クラス
-            $('.checkbox-privacy, .wpcf7-checkbox, .file_attachment').addClass('none-click');
-            
+            $form.find('select, input[type="text"], input[type="email"], input[type="url"], input[type="tel"], input[type="date"], textarea')
+                .prop('readonly', true)
+                .addClass('readonly');
+            $form.find('.checkbox-privacy, .wpcf7-checkbox, .file_attachment').addClass('none-click');
+            $form.find('input[type="checkbox"], input[type="radio"]').prop('disabled', true);
+            $('body,html').animate({scrollTop: 0}, 200, 'swing');
         });
 
         $(document).on('click', '#previous', function () {
+            var $form = $(this).closest('.wpcf7-form');
+
             $('.confirm_page_submit').hide();
             $('.form_page_submit').show();
-            $('select, input[type="text"], input[type="email"], input[type="url"], input[type="tel"], input[type="date"],textarea').attr('readonly', false).removeClass('readonly');
-            $('.checkbox-privacy, .wpcf7-checkbox, .file_attachment').removeClass('none-click');
-             // 入力のロック解除
-            $('select, input[type="text"], input[type="email"], input[type="url"], input[type="tel"], textarea')
-                .attr('readonly', false)
+            $form.find('select, input[type="text"], input[type="email"], input[type="url"], input[type="tel"], input[type="date"], textarea')
+                .prop('readonly', false)
                 .removeClass('readonly');
-        
-             // チェックボックス・ラジオ有効化
-            $('input[type="checkbox"], input[type="radio"]')
-                .attr('disabled', false);
+            $form.find('.checkbox-privacy, .wpcf7-checkbox, .file_attachment').removeClass('none-click');
+            $form.find('input[type="checkbox"], input[type="radio"]').prop('disabled', false);
         });
 
         // 確認画面→完了画面
@@ -174,11 +166,11 @@
             const formId = event.detail.contactFormId;
         
             if (formId == '391') {
-                location.href = 'http://wakoen.3d-showcase.net/staff-wanted/thanks/';
+                location.href = '/staff-wanted/thanks/';
             } else if (formId == '397') {
-                location.href = 'http://wakoen.3d-showcase.net/visit/thanks/';
+                location.href = '/visit/thanks/';
             } else {
-                location.href = 'http://wakoen.3d-showcase.net/contact/thanks/';
+                location.href = '/contact/thanks/';
             }
         }, false);
 
@@ -214,7 +206,7 @@
           
           /* ── 送信ボタンを押した瞬間に disabled を解除 ─────────────── */
           /* 旧: wpcf7submit イベント  →  新: submit ボタンの click イベント */
-          $(document).on("click", ".wpcf7-submit", function () {
+          $(document).on("click", "#submit", function () {
             $(this.form).find(":disabled").prop("disabled", false);
           });
           
