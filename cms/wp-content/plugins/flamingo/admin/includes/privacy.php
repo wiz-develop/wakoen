@@ -1,8 +1,19 @@
 <?php
+/**
+ * Support for personal data eraser tool
+ *
+ * @link https://developer.wordpress.org/plugins/privacy/adding-the-personal-data-eraser-to-your-plugin/
+ */
+
 
 add_filter( 'wp_privacy_personal_data_erasers',
-	'flamingo_privacy_register_personal_data_erasers', 10, 1 );
+	'flamingo_privacy_register_personal_data_erasers',
+	10, 1
+);
 
+/**
+ * Registers callback functions.
+ */
 function flamingo_privacy_register_personal_data_erasers( $erasers ) {
 	return array_merge( (array) $erasers, array(
 		'flamingo-contact' => array(
@@ -16,6 +27,10 @@ function flamingo_privacy_register_personal_data_erasers( $erasers ) {
 	) );
 }
 
+
+/**
+ * Callback for the contact data.
+ */
 function flamingo_privacy_contact_eraser( $email_address, $page = 1 ) {
 	$number = 100;
 
@@ -31,11 +46,11 @@ function flamingo_privacy_contact_eraser( $email_address, $page = 1 ) {
 	$messages = array();
 
 	foreach ( (array) $posts as $post ) {
-		if ( ! current_user_can( 'flamingo_delete_contact', $post->id ) ) {
+		if ( ! current_user_can( 'flamingo_delete_contact', $post->id() ) ) {
 			$items_retained = true;
 
 			$messages = array(
-				__( "Flamingo Address Book: You are not allowed to delete contact data.", 'flamingo' ),
+				__( 'Flamingo Address Book: You are not allowed to delete contact data.', 'flamingo' ),
 			);
 
 			continue;
@@ -48,7 +63,7 @@ function flamingo_privacy_contact_eraser( $email_address, $page = 1 ) {
 		}
 	}
 
-	$done = Flamingo_Contact::$found_items < $number;
+	$done = Flamingo_Contact::count() < $number;
 
 	return array(
 		'items_removed' => $items_removed,
@@ -58,6 +73,10 @@ function flamingo_privacy_contact_eraser( $email_address, $page = 1 ) {
 	);
 }
 
+
+/**
+ * Callback for the inbound messages data.
+ */
 function flamingo_privacy_inbound_eraser( $email_address, $page = 1 ) {
 	$number = 100;
 
@@ -73,11 +92,11 @@ function flamingo_privacy_inbound_eraser( $email_address, $page = 1 ) {
 	$messages = array();
 
 	foreach ( (array) $posts as $post ) {
-		if ( ! current_user_can( 'flamingo_delete_inbound_message', $post->id ) ) {
+		if ( ! current_user_can( 'flamingo_delete_inbound_message', $post->id() ) ) {
 			$items_retained = true;
 
 			$messages = array(
-				__( "Flamingo Inbound Messages: You are not allowed to delete inbound messages.", 'flamingo' ),
+				__( 'Flamingo Inbound Messages: You are not allowed to delete inbound messages.', 'flamingo' ),
 			);
 
 			continue;
@@ -90,7 +109,7 @@ function flamingo_privacy_inbound_eraser( $email_address, $page = 1 ) {
 		}
 	}
 
-	$done = Flamingo_Inbound_Message::$found_items < $number;
+	$done = Flamingo_Inbound_Message::count() < $number;
 
 	return array(
 		'items_removed' => $items_removed,

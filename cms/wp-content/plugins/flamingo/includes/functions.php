@@ -1,15 +1,22 @@
 <?php
 
+/**
+ * Retrieves a URL of a file under the Flamingo plugin directory.
+ */
 function flamingo_plugin_url( $path = '' ) {
 	$url = plugins_url( $path, FLAMINGO_PLUGIN );
 
-	if ( is_ssl() && 'http:' == substr( $url, 0, 5 ) ) {
+	if ( is_ssl() and 'http:' === substr( $url, 0, 5 ) ) {
 		$url = 'https:' . substr( $url, 5 );
 	}
 
 	return $url;
 }
 
+
+/**
+ * Converts a multidimensional array to a flat array.
+ */
 function flamingo_array_flatten( $input ) {
 	if ( ! is_array( $input ) ) {
 		return array( $input );
@@ -22,4 +29,32 @@ function flamingo_array_flatten( $input ) {
 	}
 
 	return $output;
+}
+
+
+/**
+ * Moves a spam to the Trash.
+ *
+ * @since 2.1
+ */
+function flamingo_schedule_move_trash() {
+
+	// abort if FLAMINGO_MOVE_TRASH_DAYS is set to zero or in minus
+	if ( (int) FLAMINGO_MOVE_TRASH_DAYS <= 0 ) {
+		return true;
+	}
+
+	$posts_to_move = Flamingo_Inbound_Message::find( array(
+		'posts_per_page' => 20,
+		'meta_key' => '_spam_meta_time',
+		'meta_value' => time() - ( DAY_IN_SECONDS * FLAMINGO_MOVE_TRASH_DAYS ),
+		'meta_compare' => '<',
+		'orderby' => 'meta_value_num',
+		'order' => 'ASC',
+		'post_status' => Flamingo_Inbound_Message::spam_status,
+	) );
+
+	foreach ( $posts_to_move as $post ) {
+		$post->trash();
+	}
 }
