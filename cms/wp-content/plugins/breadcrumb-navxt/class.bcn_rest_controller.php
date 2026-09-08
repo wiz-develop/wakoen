@@ -1,6 +1,6 @@
 <?php
 /*
-	Copyright 2015-2018  John Havlik  (email : john.havlik@mtekk.us)
+	Copyright 2015-2025  John Havlik  (email : john.havlik@mtekk.us)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -23,7 +23,8 @@ if(version_compare(phpversion(), '5.3.0', '<'))
 	//Only purpose of this function is to echo out the PHP version error
 	function bcn_phpold()
 	{
-		printf('<div class="notice notice-error"><p>' . __('Your PHP version is too old, please upgrade to a newer version. Your version is %1$s, Breadcrumb NavXT requires %2$s', 'breadcrumb-navxt') . '</p></div>', phpversion(), '5.3.0');
+		/* translators: %1$s: User's version of PHP, %2$s: Breadcrmb NavXT minimuum PHP version */
+		printf('<div class="notice notice-error"><p>' . esc_html__('Your PHP version is too old, please upgrade to a newer version. Your version is %1$s, Breadcrumb NavXT requires %2$s', 'breadcrumb-navxt') . '</p></div>', esc_html(phpversion()), '7.0.0');
 	}
 	//If we are in the admin, let's print a warning then return
 	if(is_admin())
@@ -50,9 +51,28 @@ class bcn_rest_controller
 		$this->unique_prefix = $unique_prefix;
 		add_action('rest_api_init', array($this, 'register_routes'));
 	}
+	/**
+	 * A quick wrapper for register_rest_route to add our inclusion filter
+	 * 
+	 * @param string $endpoint The endpoint name passed into the bcn_register_rest_endpoint filter
+	 * @param string $namespace The first URL segment after core prefix. Should be unique
+	 * @param string $route The base URL for route being added
+	 * @param array $args Optional. Either an array of options for the endpoint, or an array of arrays for
+	 *                          multiple methods. Default empty array.
+	 * @param bool $override Optional. If the route already exists, should we override it?
+	 * @return boolean True on success, false on error.
+	 */
+	protected function register_rest_route($endpoint, $namespace, $route, $args = array(), $override = false)
+	{
+		if(apply_filters('bcn_register_rest_endpoint', false, $endpoint, $this::version, $this->methods))
+		{
+			return register_rest_route($namespace, $route, $args, $override);
+		}
+		return false;
+	}
 	public function register_routes()
 	{
-		register_rest_route( $this->unique_prefix . '/v' . $this::version, '/post/(?P<id>[\d]+)', array(
+		$this->register_rest_route('post', $this->unique_prefix . '/v' . $this::version, '/post/(?P<id>[\d]+)', array(
 			'args' => array(
 				'id' => array(
 					'description' => __('The ID of the post (any type) to retrieve the breadcrumb trail for.', 'breadcrumb-navxt'),
@@ -64,9 +84,9 @@ class bcn_rest_controller
 			'methods' => $this->methods,
 			'callback' => array($this, 'display_rest_post'),
 			'permission_callback' => array($this, 'display_rest_post_permissions_check')
-			)
+			), false
 		);
-		register_rest_route( $this->unique_prefix . '/v' . $this::version, '/term/(?P<taxonomy>[\w-]+)/(?P<id>[\d]+)', array(
+		$this->register_rest_route('term', $this->unique_prefix . '/v' . $this::version, '/term/(?P<taxonomy>[\w-]+)/(?P<id>[\d]+)', array(
 			'args' => array(
 				'id' => array(
 					'description' => __('The ID of the term to retrieve the breadcrumb trail for.', 'breadcrumb-navxt'),
@@ -82,10 +102,11 @@ class bcn_rest_controller
 				)
 			),
 			'methods' => $this->methods,
-			'callback' => array($this, 'display_rest_term')
-			)
+			'callback' => array($this, 'display_rest_term'),
+			'permission_callback' => '__return_true'
+			), false
 		);
-		register_rest_route( $this->unique_prefix . '/v' . $this::version, '/author/(?P<id>\d+)', array(
+		$this->register_rest_route('author', $this->unique_prefix . '/v' . $this::version, '/author/(?P<id>\d+)', array(
 			'args' => array(
 				'id' => array(
 					'description' => __('The ID of the author to retrieve the breadcrumb trail for.', 'breadcrumb-navxt'),
@@ -95,8 +116,9 @@ class bcn_rest_controller
 				)
 			),
 			'methods' => $this->methods,
-			'callback' => array($this, 'display_rest_author')
-			)
+			'callback' => array($this, 'display_rest_author'),
+			'permission_callback' => '__return_true'
+			), false
 		);
 	}
 	/**
@@ -104,7 +126,7 @@ class bcn_rest_controller
 	 * 
 	 * @param mixed $param The parameter to validate
 	 * @param WP_REST_Request $request REST API request data
-	 * @param string $key The paramter key
+	 * @param string $key The parameter key
 	 * @return bool Whether or not the ID is valid (or atleast looks valid)
 	 */
 	public function validate_id($param, $request, $key)
@@ -116,7 +138,7 @@ class bcn_rest_controller
 	 * 
 	 * @param mixed $param The parameter to validate
 	 * @param WP_REST_Request $request REST API request data
-	 * @param string $key The paramter key
+	 * @param string $key The parameter key
 	 * @return bool Whether or not the ID is valid (or atleast looks valid)
 	 */
 	public function validate_taxonomy($param, $request, $key)

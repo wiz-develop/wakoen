@@ -2,7 +2,7 @@
 
 namespace WPMailSMTP\Admin\Pages;
 
-use WPMailSMTP\Options;
+use WPMailSMTP\ConnectionInterface;
 use WPMailSMTP\Providers\AuthAbstract;
 
 /**
@@ -24,7 +24,22 @@ class AuthTab {
 	 */
 	public function process_auth() {
 
-		$auth = wp_mail_smtp()->get_providers()->get_auth( Options::init()->get( 'mail', 'mailer' ) );
+		if ( ! current_user_can( wp_mail_smtp()->get_capability_manage_global_options() ) ) {
+			return;
+		}
+
+		$connection = wp_mail_smtp()->get_connections_manager()->get_primary_connection();
+
+		/**
+		 * Filters auth connection object.
+		 *
+		 * @since 3.7.0
+		 *
+		 * @param ConnectionInterface $connection The Connection object.
+		 */
+		$connection = apply_filters( 'wp_mail_smtp_admin_pages_auth_tab_process_auth_connection', $connection );
+
+		$auth = wp_mail_smtp()->get_providers()->get_auth( $connection->get_mailer_slug(), $connection );
 
 		if (
 			$auth &&

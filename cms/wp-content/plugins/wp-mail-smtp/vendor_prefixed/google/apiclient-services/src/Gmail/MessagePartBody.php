@@ -19,33 +19,60 @@ namespace WPMailSMTP\Vendor\Google\Service\Gmail;
 
 class MessagePartBody extends \WPMailSMTP\Vendor\Google\Model
 {
+    /**
+     * @var string
+     */
     public $attachmentId;
+    /**
+     * @var string
+     */
     public $data;
+    /**
+     * @var int
+     */
     public $size;
+    /**
+     * @param string
+     */
     public function setAttachmentId($attachmentId)
     {
         $this->attachmentId = $attachmentId;
     }
+    /**
+     * @return string
+     */
     public function getAttachmentId()
     {
         return $this->attachmentId;
     }
+    /**
+     * @param string
+     */
     public function setData($data)
     {
         $this->data = $data;
     }
+    /**
+     * @return string
+     */
     public function getData()
     {
         return $this->data;
     }
+    /**
+     * @param int
+     */
     public function setSize($size)
     {
         $this->size = $size;
     }
+    /**
+     * @return int
+     */
     public function getSize()
     {
         return $this->size;
     }
 }
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\WPMailSMTP\Vendor\Google\Service\Gmail\MessagePartBody::class, 'WPMailSMTP\\Vendor\\Google_Service_Gmail_MessagePartBody');
+\class_alias(MessagePartBody::class, 'WPMailSMTP\\Vendor\\Google_Service_Gmail_MessagePartBody');

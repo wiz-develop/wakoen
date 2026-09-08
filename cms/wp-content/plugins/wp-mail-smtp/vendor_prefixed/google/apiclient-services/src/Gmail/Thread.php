@@ -20,23 +20,44 @@ namespace WPMailSMTP\Vendor\Google\Service\Gmail;
 class Thread extends \WPMailSMTP\Vendor\Google\Collection
 {
     protected $collection_key = 'messages';
+    /**
+     * @var string
+     */
     public $historyId;
+    /**
+     * @var string
+     */
     public $id;
-    protected $messagesType = \WPMailSMTP\Vendor\Google\Service\Gmail\Message::class;
+    protected $messagesType = Message::class;
     protected $messagesDataType = 'array';
+    /**
+     * @var string
+     */
     public $snippet;
+    /**
+     * @param string
+     */
     public function setHistoryId($historyId)
     {
         $this->historyId = $historyId;
     }
+    /**
+     * @return string
+     */
     public function getHistoryId()
     {
         return $this->historyId;
     }
+    /**
+     * @param string
+     */
     public function setId($id)
     {
         $this->id = $id;
     }
+    /**
+     * @return string
+     */
     public function getId()
     {
         return $this->id;
@@ -55,14 +76,20 @@ class Thread extends \WPMailSMTP\Vendor\Google\Collection
     {
         return $this->messages;
     }
+    /**
+     * @param string
+     */
     public function setSnippet($snippet)
     {
         $this->snippet = $snippet;
     }
+    /**
+     * @return string
+     */
     public function getSnippet()
     {
         return $this->snippet;
     }
 }
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\WPMailSMTP\Vendor\Google\Service\Gmail\Thread::class, 'WPMailSMTP\\Vendor\\Google_Service_Gmail_Thread');
+\class_alias(Thread::class, 'WPMailSMTP\\Vendor\\Google_Service_Gmail_Thread');

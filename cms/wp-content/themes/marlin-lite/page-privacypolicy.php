@@ -27,7 +27,7 @@ Template Name:privacypolicy
 <p style="text-align:center;">当園の個人情報の取扱に関するお問い合せは下記までご連絡ください。</p>
 <br>
 <p class="privacy_ad">社会福祉法人 聖天奉仕会 幼保連携型認定こども園　和光園<br>
-〒553-0002&nbsp;大阪市福島区鷺洲2丁目14-1<br>
+〒553-0002&nbsp;大阪市福島区鷺洲2-14-1<br>
 <br>
 <span class="tel-pc">TEL　06-6451-7193</span>
 		<span class="tel-mobile"><a href="tel:06-6451-7193">TEL　06-6451-7193</a></span></p>

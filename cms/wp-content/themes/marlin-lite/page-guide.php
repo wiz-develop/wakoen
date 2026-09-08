@@ -5,7 +5,7 @@ Template Name:guide
 ?>
 <?php get_header(); ?>
 	<div class="guide_main">
-		<h1 class="guide_title"><img src="/wp-content/themes/marlin-lite/images/flag1.png" alt="和光園" class="guide-titleber">入園のご案内<img src="/wp-content/themes/marlin-lite/images/flag1.png" alt="和光園" class="guide-titleber"></h1>
+		<h1 class="guide_title"><img src="/cms/wp-content/themes/marlin-lite/images/flag1.png" alt="和光園" class="guide-titleber">入園のご案内<img src="/cms/wp-content/themes/marlin-lite/images/flag1.png" alt="和光園" class="guide-titleber"></h1>
 <div class="table_line">
 <table class="guide_area">
 		<tr class="guide_column">
@@ -104,7 +104,7 @@ Template Name:guide
 			<td class="guide_indent" style="text-align: left;">9:00～15:00</td><td></td>
 		</tr>
 </table>
-<img src="/wp-content/themes/marlin-lite/images/flag1.png" alt="和光園" class="flag_up">
+<img src="/cms/wp-content/themes/marlin-lite/images/flag1.png" alt="和光園" class="flag_up">
 </div>
 
 <div class="guide_briefing">
@@ -119,10 +119,10 @@ Template Name:guide
 		<br>
 		休園日　日曜・年末年始</p>
 		
-		<img src="/wp-content/themes/marlin-lite/images/ompu_blue.png" alt="和光園" class="onpu_left">
-		<img src="/wp-content/themes/marlin-lite/images/onpu_red.png" alt="和光園" class="onpu_left1">
-		<img src="/wp-content/themes/marlin-lite/images/onpu_yellow.png" alt="和光園" class="onpu_right">
-		<img src="/wp-content/themes/marlin-lite/images/onpu_red.png" alt="和光園" class="onpu_right1">
+		<img src="/cms/wp-content/themes/marlin-lite/images/ompu_blue.png" alt="和光園" class="onpu_left">
+		<img src="/cms/wp-content/themes/marlin-lite/images/onpu_red.png" alt="和光園" class="onpu_left1">
+		<img src="/cms/wp-content/themes/marlin-lite/images/onpu_yellow.png" alt="和光園" class="onpu_right">
+		<img src="/cms/wp-content/themes/marlin-lite/images/onpu_red.png" alt="和光園" class="onpu_right1">
 		
 		</div>
 </div>

@@ -9,7 +9,7 @@ Template Name:inquiry
 		
 	
 	<div class="inquiry_faq">
-		<h1 class="inquiry_faqtitle"><img src="/wp-content/themes/marlin-lite/images/line1.png" class="edu_line2">よくあるご質問<img src="/wp-content/themes/marlin-lite/images/line1.png" class="edu_line2"></h1>
+		<h1 class="inquiry_faqtitle"><img src="/cms/wp-content/themes/marlin-lite/images/line1.png" class="edu_line2">よくあるご質問<img src="/cms/wp-content/themes/marlin-lite/images/line1.png" class="edu_line2"></h1>
 		<div class="q-a">
 			<p class="heading_faq">布おむつは使用できますか？</p>
 			<p class="write_faq">紙おむつ・布おむつは保護者様のご希望に合わせて引き継ぎます。紙おむつは衛生面を考慮し、園で処分しております。</p>
@@ -21,7 +21,7 @@ Template Name:inquiry
 			<p class="write_faq">園では、ここ数年卵の提供を見合わせて、「なかよし給食」の実施をしています。<br>アレルギーのあるお子さまには、個別の対応をしています。</p>
 
 			<p class="heading_faq">園内で習い事はありますか？
-				<p class="write_faq">絵画、英語、わらべうたなど、専任の講師の方と連携して実施しています。<br>また、「からだづくりはあたまづくり」をモットーとし、運動発達の促進に力を入れています。<br>別途、課外レッスンの受付もしています。
+				<p class="write_faq">絵画、英語、リトミック、かがくあそび、わらべうたなど、専任の講師の方と連携して実施しています。<br>また、「からだづくりはあたまづくり」をモットーとし、運動発達の促進に力を入れています。<br>別途、課外レッスンの受付もしています。
 </p>
 
 			<p class="heading_faq">慣らし保育はありますか？</p>

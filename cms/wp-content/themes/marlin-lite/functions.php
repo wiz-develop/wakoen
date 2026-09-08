@@ -83,8 +83,9 @@ function marlin_lite_load_scripts() {
 	wp_enqueue_script('fitvids', MARLIN_LIBS_URI . 'fitvids/fitvids.js', array(), '1.1', true );
     wp_enqueue_script('jquery-masonry', MARLIN_LIBS_URI . 'masonry/masonry.js', array(), '4.2.0', true );
     wp_enqueue_script('chosen', MARLIN_LIBS_URI . 'chosen/chosen.jquery.min.js', array(), '1.6.2', true );
+    // wp_enqueue_script('marlin-scripts', get_template_directory_uri() . '/assets/js/marlin-scripts.js?date=' . date("ymdHis",filemtime(get_template_directory_uri() . '/assets/js/marlin-scripts.js')), array(), false, true);
     
-    if ( is_singular() && get_option( 'thread_comments' ) ) {
+	if ( is_singular() && get_option( 'thread_comments' ) ) {
         wp_enqueue_script('comment-reply');
     }
 }
@@ -167,6 +168,9 @@ function add_wp_head_custom(){ ?>
 	<?php date_default_timezone_set('Asia/Tokyo'); ?>
 	<link rel="stylesheet" id="marlin-lite-style-css" href="<?php echo get_stylesheet_directory_uri(); ?>/style.css?date=<?php echo date("ymdHis",filemtime( get_stylesheet_directory()."/style.css")); ?>" type="text/css" media="all">
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+		<!-- 新規追加：Font Awesome v6（Freeアイコン + shims） -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/fontawesome.min.css" integrity="sha512-RlN3GvIgNBXR7Aw7Et51eqL8SvlY4fO07ZnQbLqqH7V0s0nkGVzUo6M7vmMcydjy2Y4DwAptQGPcPWBxKHkGrw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/solid.min.css" integrity="sha512-7u+yGOFoHZw2JZcgLkl7FOdpqrxsuw8dSFM9EhqlYOEuV7mfCT6sRCijZ8nyUp43ZCk6Xp0bJHfrtwkpEGLvZQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <?php }
 add_action( 'wp_head', 'add_wp_head_custom',99);
 

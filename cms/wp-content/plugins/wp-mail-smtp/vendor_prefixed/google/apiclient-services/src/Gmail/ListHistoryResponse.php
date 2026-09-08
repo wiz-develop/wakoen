@@ -20,9 +20,15 @@ namespace WPMailSMTP\Vendor\Google\Service\Gmail;
 class ListHistoryResponse extends \WPMailSMTP\Vendor\Google\Collection
 {
     protected $collection_key = 'history';
-    protected $historyType = \WPMailSMTP\Vendor\Google\Service\Gmail\History::class;
+    protected $historyType = History::class;
     protected $historyDataType = 'array';
+    /**
+     * @var string
+     */
     public $historyId;
+    /**
+     * @var string
+     */
     public $nextPageToken;
     /**
      * @param History[]
@@ -38,22 +44,34 @@ class ListHistoryResponse extends \WPMailSMTP\Vendor\Google\Collection
     {
         return $this->history;
     }
+    /**
+     * @param string
+     */
     public function setHistoryId($historyId)
     {
         $this->historyId = $historyId;
     }
+    /**
+     * @return string
+     */
     public function getHistoryId()
     {
         return $this->historyId;
     }
+    /**
+     * @param string
+     */
     public function setNextPageToken($nextPageToken)
     {
         $this->nextPageToken = $nextPageToken;
     }
+    /**
+     * @return string
+     */
     public function getNextPageToken()
     {
         return $this->nextPageToken;
     }
 }
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\WPMailSMTP\Vendor\Google\Service\Gmail\ListHistoryResponse::class, 'WPMailSMTP\\Vendor\\Google_Service_Gmail_ListHistoryResponse');
+\class_alias(ListHistoryResponse::class, 'WPMailSMTP\\Vendor\\Google_Service_Gmail_ListHistoryResponse');

@@ -31,7 +31,7 @@ get_header();
 								<div class="lesson_list__content col-xs-6 col-md-4">
 									<h3 class="lesson_subject">英語</h3>
 									<div class="lesson_item__img">
-										<img src="/wp-content/themes/marlin-lite/images/kodomo_english.jpg" alt="英語">
+										<img src="/cms/wp-content/themes/marlin-lite/images/kodomo_english.jpg" alt="英語">
 									</div>
 									<div class="lesson_item__about">
 										<div class="lesson_item__about__detail d-lg-flex d-sm-block">
@@ -47,7 +47,7 @@ get_header();
 								<div class="lesson_list__content col-xs-6 col-md-4">
 									<h3 class="lesson_subject">絵画</h3>
 									<div class="lesson_item__img">
-										<img src="/wp-content/themes/marlin-lite/images/kodomo_drawing.jpg" alt="絵画">
+										<img src="/cms/wp-content/themes/marlin-lite/images/kodomo_drawing.jpg" alt="絵画">
 									</div>
 									<div class="lesson_item__about">
 										<div class="lesson_item__about__detail d-lg-flex d-sm-block">
@@ -63,7 +63,7 @@ get_header();
 								<div class="lesson_list__content col-xs-6 col-md-4">
 									<h3 class="lesson_subject">わらべうた</h3>
 									<div class="lesson_item__img">
-										<img src="/wp-content/themes/marlin-lite/images/kodomo_singing.jpg" alt="わらべうた">
+										<img src="/cms/wp-content/themes/marlin-lite/images/kodomo_singing.jpg" alt="わらべうた">
 									</div>
 									<div class="lesson_item__about">
 										<div class="lesson_item__about__detail d-lg-flex d-sm-block">
@@ -79,7 +79,7 @@ get_header();
 								<div class="lesson_list__content col-xs-6 col-md-4">
 									<h3 class="lesson_subject">リトミック</h3>
 									<div class="lesson_item__img">
-										<img src="/wp-content/themes/marlin-lite/images/kodomo_rythmique.jpg" alt="リトミック">
+										<img src="/cms/wp-content/themes/marlin-lite/images/kodomo_rythmique.jpg" alt="リトミック">
 									</div>
 									<div class="lesson_item__about">
 										<div class="lesson_item__about__detail d-lg-flex d-sm-block">
@@ -95,7 +95,7 @@ get_header();
 								<div class="lesson_list__content col-xs-6 col-md-4">
 									<h3 class="lesson_subject">学研かがく「小学校に向けて・かがくあそび」</h3>
 									<div class="lesson_item__img">
-										<img src="/wp-content/themes/marlin-lite/images/kodomo_science.jpg" alt="学研かがく「小学校に向けて・かがくあそび」">
+										<img src="/cms/wp-content/themes/marlin-lite/images/kodomo_science.jpg" alt="学研かがく「小学校に向けて・かがくあそび」">
 									</div>
 									<div class="lesson_item__about">
 										<div class="lesson_item__about__detail d-lg-flex d-sm-block">

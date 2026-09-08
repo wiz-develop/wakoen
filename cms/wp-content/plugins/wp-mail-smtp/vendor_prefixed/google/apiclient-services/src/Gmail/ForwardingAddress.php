@@ -19,24 +19,42 @@ namespace WPMailSMTP\Vendor\Google\Service\Gmail;
 
 class ForwardingAddress extends \WPMailSMTP\Vendor\Google\Model
 {
+    /**
+     * @var string
+     */
     public $forwardingEmail;
+    /**
+     * @var string
+     */
     public $verificationStatus;
+    /**
+     * @param string
+     */
     public function setForwardingEmail($forwardingEmail)
     {
         $this->forwardingEmail = $forwardingEmail;
     }
+    /**
+     * @return string
+     */
     public function getForwardingEmail()
     {
         return $this->forwardingEmail;
     }
+    /**
+     * @param string
+     */
     public function setVerificationStatus($verificationStatus)
     {
         $this->verificationStatus = $verificationStatus;
     }
+    /**
+     * @return string
+     */
     public function getVerificationStatus()
     {
         return $this->verificationStatus;
     }
 }
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\WPMailSMTP\Vendor\Google\Service\Gmail\ForwardingAddress::class, 'WPMailSMTP\\Vendor\\Google_Service_Gmail_ForwardingAddress');
+\class_alias(ForwardingAddress::class, 'WPMailSMTP\\Vendor\\Google_Service_Gmail_ForwardingAddress');

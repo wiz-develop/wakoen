@@ -2,11 +2,10 @@
 
 namespace WPMailSMTP\Admin\Pages;
 
+use WPMailSMTP\Admin\ConnectionSettings;
 use WPMailSMTP\Admin\PageAbstract;
 use WPMailSMTP\Admin\SetupWizard;
-use WPMailSMTP\Debug;
 use WPMailSMTP\Options;
-use WPMailSMTP\Providers\Gmail\Auth;
 use WPMailSMTP\WP;
 
 /**
@@ -51,20 +50,10 @@ class SettingsTab extends PageAbstract {
 	 */
 	public function display() {
 
-		$options = new Options();
-		$mailer  = $options->get( 'mail', 'mailer' );
-
-		$disabled_email = in_array( $mailer, [ 'outlook', 'zoho' ], true ) ? 'disabled' : '';
-		$disabled_name  = 'outlook' === $mailer ? 'disabled' : '';
-
-		if ( empty( $mailer ) ) {
-			$mailer = 'mail';
-		}
-
-		$mailer_supported_settings = wp_mail_smtp()->get_providers()->get_options( $mailer )->get_supports();
+		$options = Options::init();
 		?>
 
-		<form method="POST" action="" autocomplete="off">
+		<form method="POST" action="" autocomplete="off" class="wp-mail-smtp-connection-settings-form">
 			<?php $this->wp_nonce_field(); ?>
 
 			<?php ob_start(); ?>
@@ -80,6 +69,29 @@ class SettingsTab extends PageAbstract {
 				</div>
 			</div>
 
+			<?php if ( ! wp_mail_smtp()->is_pro() ) : ?>
+				<div class="wp-mail-smtp-upgrade-license-banner">
+					<p><?php echo wp_kses( __( 'You\'re using <strong>WP Mail SMTP Lite</strong> - no license needed. Enjoy!', 'wp-mail-smtp' ), [ 'strong' => [] ] ); ?> 🙂</p>
+
+					<p class="wp-mail-smtp-upgrade-license-banner__discount-line">
+						<?php
+						printf(
+							wp_kses( /* Translators: %s - discount value $50 */
+								__( 'As a valued WP Mail SMTP Lite user, you can enjoy an exclusive <strong>%s discount</strong>, automatically applied at checkout to unlock even more features!', 'wp-mail-smtp' ),
+								[
+									'strong' => [],
+									'br'     => [],
+								]
+							),
+							'$50'
+						);
+						?>
+					</p>
+
+					<a href="<?php echo esc_url( wp_mail_smtp()->get_upgrade_link( 'general-license-key' ) ); ?>" target="_blank" rel="noopener noreferrer" class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-secondary wp-mail-smtp-upgrade-license-banner__upgrade-btn"><?php esc_html_e( 'Upgrade to Pro', 'wp-mail-smtp' ); ?></a>
+				</div>
+			<?php endif; ?>
+
 			<!-- License Key -->
 			<div id="wp-mail-smtp-setting-row-license_key" class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-license_key wp-mail-smtp-clear">
 				<div class="wp-mail-smtp-setting-label">
@@ -91,9 +103,9 @@ class SettingsTab extends PageAbstract {
 			</div>
 
 			<!-- Mail Section Title -->
-			<div class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-content wp-mail-smtp-clear section-heading no-desc" id="wp-mail-smtp-setting-row-email-heading">
+			<div class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-content wp-mail-smtp-clear section-heading no-desc">
 				<div class="wp-mail-smtp-setting-field">
-					<h2><?php esc_html_e( 'Mail', 'wp-mail-smtp' ); ?></h2>
+					<h2><?php esc_html_e( 'Primary Connection', 'wp-mail-smtp' ); ?></h2>
 				</div>
 			</div>
 
@@ -115,244 +127,19 @@ class SettingsTab extends PageAbstract {
 				</div>
 			<?php endif; ?>
 
-			<!-- From Email -->
-			<div id="wp-mail-smtp-setting-row-from_email" class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-email wp-mail-smtp-clear">
-				<div class="wp-mail-smtp-setting-label">
-					<label for="wp-mail-smtp-setting-from_email"><?php esc_html_e( 'From Email', 'wp-mail-smtp' ); ?></label>
-				</div>
-				<div class="wp-mail-smtp-setting-field">
-					<div class="js-wp-mail-smtp-setting-from_email" style="display: <?php echo empty( $mailer_supported_settings['from_email'] ) ? 'none' : 'block'; ?>;">
-						<?php if ( 'gmail' !== $mailer ) : ?>
-							<input name="wp-mail-smtp[mail][from_email]" type="email"
-								value="<?php echo esc_attr( $options->get( 'mail', 'from_email' ) ); ?>"
-								<?php echo $options->is_const_defined( 'mail', 'from_email' ) || ! empty( $disabled_email ) ? 'disabled' : ''; ?>
-								id="wp-mail-smtp-setting-from_email" spellcheck="false"
-								placeholder="<?php echo esc_attr( wp_mail_smtp()->get_processor()->get_default_email() ); ?>">
-						<?php else : ?>
-							<?php
-							// Gmail mailer From Email selector.
-							$gmail_auth    = new Auth();
-							$gmail_aliases = $gmail_auth->is_clients_saved() ? $gmail_auth->get_user_possible_send_from_addresses() : [];
-							?>
+			<?php
+			$connection          = wp_mail_smtp()->get_connections_manager()->get_primary_connection();
+			$connection_settings = new ConnectionSettings( $connection );
 
-							<?php if ( empty( $gmail_aliases ) ) : ?>
-								<select name="wp-mail-smtp[mail][from_email]" id="wp-mail-smtp-setting-from_email" disabled>
-									<option value=""><?php esc_html_e( 'Please first authorize the Gmail mailer below', 'wp-mail-smtp' ); ?></option>
-								</select>
-							<?php else : ?>
-								<select name="wp-mail-smtp[mail][from_email]" id="wp-mail-smtp-setting-from_email">
-									<?php foreach ( $gmail_aliases as $gmail_email_address ) : ?>
-										<option value="<?php echo esc_attr( $gmail_email_address ); ?>" <?php selected( $options->get( 'mail', 'from_email' ), $gmail_email_address ); ?>><?php echo esc_html( $gmail_email_address ); ?></option>
-									<?php endforeach; ?>
-								</select>
-							<?php endif; ?>
+			// Display connection settings.
+			$connection_settings->display();
+			?>
 
-						<?php endif; ?>
-
-						<?php if ( ! in_array( $mailer, [ 'gmail', 'outlook', 'zoho' ], true ) ) : ?>
-							<p class="desc">
-								<?php esc_html_e( 'The email address that emails are sent from.', 'wp-mail-smtp' ); ?><br/>
-								<?php esc_html_e( 'If you\'re using an email provider (Yahoo, Outlook.com, etc) this should be your email address for that account.', 'wp-mail-smtp' ); ?>
-							</p>
-							<p class="desc">
-								<?php esc_html_e( 'Please note that other plugins can change this, to prevent this use the setting below.', 'wp-mail-smtp' ); ?>
-							</p>
-						<?php endif; ?>
-					</div>
-
-					<hr class="wp-mail-smtp-setting-mid-row-sep" style="display: <?php echo ( ! empty( $mailer_supported_settings['from_email'] ) && ! empty( $mailer_supported_settings['from_email_force'] ) ) ? 'block' : 'none'; ?>;">
-
-					<div class="js-wp-mail-smtp-setting-from_email_force" style="display: <?php echo empty( $mailer_supported_settings['from_email_force'] ) ? 'none' : 'block'; ?>;">
-						<input name="wp-mail-smtp[mail][from_email_force]" type="checkbox"
-							value="true" <?php checked( true, (bool) $options->get( 'mail', 'from_email_force' ) ); ?>
-							<?php echo $options->is_const_defined( 'mail', 'from_email_force' ) || ! empty( $disabled_email ) ? 'disabled' : ''; ?>
-							id="wp-mail-smtp-setting-from_email_force">
-
-						<label for="wp-mail-smtp-setting-from_email_force">
-							<?php esc_html_e( 'Force From Email', 'wp-mail-smtp' ); ?>
-						</label>
-
-						<?php if ( ! empty( $disabled_email ) ) : ?>
-							<p class="desc">
-								<?php esc_html_e( 'Current provider will automatically force From Email to be the email address that you use to set up the connection below.', 'wp-mail-smtp' ); ?>
-							</p>
-						<?php else : ?>
-							<p class="desc">
-								<?php esc_html_e( 'If checked, the From Email setting above will be used for all emails, ignoring values set by other plugins.', 'wp-mail-smtp' ); ?>
-							</p>
-						<?php endif; ?>
-					</div>
-				</div>
-			</div>
-
-			<!-- From Name -->
-			<div id="wp-mail-smtp-setting-row-from_name" class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-text wp-mail-smtp-clear">
-				<div class="wp-mail-smtp-setting-label">
-					<label for="wp-mail-smtp-setting-from_name"><?php esc_html_e( 'From Name', 'wp-mail-smtp' ); ?></label>
-				</div>
-				<div class="wp-mail-smtp-setting-field">
-					<div class="js-wp-mail-smtp-setting-from_name" style="display: <?php echo empty( $mailer_supported_settings['from_name'] ) ? 'none' : 'block'; ?>;">
-						<input name="wp-mail-smtp[mail][from_name]" type="text"
-							value="<?php echo esc_attr( $options->get( 'mail', 'from_name' ) ); ?>"
-							<?php echo $options->is_const_defined( 'mail', 'from_name' ) || ! empty( $disabled_name ) ? 'disabled' : ''; ?>
-							id="wp-mail-smtp-setting-from_name" spellcheck="false"
-							placeholder="<?php echo esc_attr( wp_mail_smtp()->get_processor()->get_default_name() ); ?>">
-
-						<?php if ( empty( $disabled_name ) ) : ?>
-							<p class="desc">
-								<?php esc_html_e( 'The name that emails are sent from.', 'wp-mail-smtp' ); ?>
-							</p>
-						<?php endif; ?>
-					</div>
-
-					<hr class="wp-mail-smtp-setting-mid-row-sep" style="display: <?php echo ( ! empty( $mailer_supported_settings['from_name'] ) && ! empty( $mailer_supported_settings['from_name_force'] ) ) ? 'block' : 'none'; ?>;">
-
-					<div class="js-wp-mail-smtp-setting-from_name_force" style="display: <?php echo empty( $mailer_supported_settings['from_name_force'] ) ? 'none' : 'block'; ?>;">
-						<input name="wp-mail-smtp[mail][from_name_force]" type="checkbox"
-							value="true" <?php checked( true, (bool) $options->get( 'mail', 'from_name_force' ) ); ?>
-							<?php echo $options->is_const_defined( 'mail', 'from_name_force' ) || ! empty( $disabled_name ) ? 'disabled' : ''; ?>
-							id="wp-mail-smtp-setting-from_name_force">
-
-						<label for="wp-mail-smtp-setting-from_name_force">
-							<?php esc_html_e( 'Force From Name', 'wp-mail-smtp' ); ?>
-						</label>
-
-						<?php if ( ! empty( $disabled_name ) ) : ?>
-							<p class="desc">
-								<?php esc_html_e( 'Current provider doesn\'t support setting and forcing From Name. Emails will be sent on behalf of the account name used to setup the connection below.', 'wp-mail-smtp' ); ?>
-							</p>
-						<?php else : ?>
-							<p class="desc">
-								<?php esc_html_e( 'If checked, the From Name setting above will be used for all emails, ignoring values set by other plugins.', 'wp-mail-smtp' ); ?>
-							</p>
-						<?php endif; ?>
-					</div>
-				</div>
-			</div>
-
-			<!-- Return Path -->
-			<div id="wp-mail-smtp-setting-row-return_path" class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-checkbox wp-mail-smtp-clear js-wp-mail-smtp-setting-return_path" style="display: <?php echo empty( $mailer_supported_settings['return_path'] ) ? 'none' : 'block'; ?>;">
-				<div class="wp-mail-smtp-setting-label">
-					<label for="wp-mail-smtp-setting-return_path"><?php esc_html_e( 'Return Path', 'wp-mail-smtp' ); ?></label>
-				</div>
-				<div class="wp-mail-smtp-setting-field">
-					<input name="wp-mail-smtp[mail][return_path]" type="checkbox"
-					       value="true" <?php checked( true, (bool) $options->get( 'mail', 'return_path' ) ); ?>
-						<?php echo $options->is_const_defined( 'mail', 'return_path' ) ? 'disabled' : ''; ?>
-						   id="wp-mail-smtp-setting-return_path">
-
-					<label for="wp-mail-smtp-setting-return_path">
-						<?php esc_html_e( 'Set the return-path to match the From Email', 'wp-mail-smtp' ); ?>
-					</label>
-
-					<p class="desc">
-						<?php esc_html_e( 'Return Path indicates where non-delivery receipts - or bounce messages - are to be sent.', 'wp-mail-smtp' ); ?><br/>
-						<?php esc_html_e( 'If unchecked, bounce messages may be lost.', 'wp-mail-smtp' ); ?>
-					</p>
-				</div>
-			</div>
-
-			<!-- Mailer -->
-			<div id="wp-mail-smtp-setting-row-mailer" class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-mailer wp-mail-smtp-clear">
-				<div class="wp-mail-smtp-setting-label">
-					<label for="wp-mail-smtp-setting-mailer"><?php esc_html_e( 'Mailer', 'wp-mail-smtp' ); ?></label>
-				</div>
-				<div class="wp-mail-smtp-setting-field">
-					<div class="wp-mail-smtp-mailers">
-
-						<?php foreach ( wp_mail_smtp()->get_providers()->get_options_all() as $provider ) : ?>
-
-							<div class="wp-mail-smtp-mailer wp-mail-smtp-mailer-<?php echo esc_attr( $provider->get_slug() ); ?> <?php echo $mailer === $provider->get_slug() ? 'active' : ''; ?>">
-
-								<div class="wp-mail-smtp-mailer-image <?php echo $provider->is_recommended() ? 'is-recommended' : ''; ?>">
-									<img src="<?php echo esc_url( $provider->get_logo_url() ); ?>"
-										alt="<?php echo esc_attr( $provider->get_title() ); ?>">
-								</div>
-
-								<div class="wp-mail-smtp-mailer-text">
-									<?php if ( $provider->is_disabled() ) : ?>
-										<input type="radio" name="wp-mail-smtp[mail][mailer]" disabled
-											class="js-wp-mail-smtp-setting-mailer-radio-input educate"
-											id="wp-mail-smtp-setting-mailer-<?php echo esc_attr( $provider->get_slug() ); ?>"
-											value="<?php echo esc_attr( $provider->get_slug() ); ?>"
-										/>
-									<?php else : ?>
-										<input id="wp-mail-smtp-setting-mailer-<?php echo esc_attr( $provider->get_slug() ); ?>"
-											type="radio" name="wp-mail-smtp[mail][mailer]"
-											value="<?php echo esc_attr( $provider->get_slug() ); ?>"
-											class="js-wp-mail-smtp-setting-mailer-radio-input<?php echo $provider->is_disabled() ? ' educate' : ''; ?>"
-											<?php checked( $provider->get_slug(), $mailer ); ?>
-											<?php echo $options->is_const_defined( 'mail', 'mailer' ) || $provider->is_disabled() ? 'disabled' : ''; ?>
-										/>
-									<?php endif; ?>
-									<label for="wp-mail-smtp-setting-mailer-<?php echo esc_attr( $provider->get_slug() ); ?>">
-										<?php echo esc_html( $provider->get_title() ); ?>
-									</label>
-								</div>
-							</div>
-
-						<?php endforeach; ?>
-					</div>
-
-					<!-- Suggest a mailer -->
-					<div class="wp-mail-smtp-suggest-new-mailer">
-						<p class="desc">
-							<?php esc_html_e( 'Don\'t see what you\'re looking for?', 'wp-mail-smtp' ); ?>
-							<a href="https://wpmailsmtp.com/suggest-a-mailer" target="_blank" rel="noopener noreferrer">
-								<?php esc_html_e( 'Suggest a Mailer', 'wp-mail-smtp' ); ?>
-							</a>
-						</p>
-					</div>
-				</div>
-			</div>
-
-			<!-- Mailer Options -->
-			<div class="wp-mail-smtp-mailer-options">
-				<?php foreach ( wp_mail_smtp()->get_providers()->get_options_all() as $provider ) : ?>
-					<?php $provider_desc = $provider->get_description(); ?>
-					<div class="wp-mail-smtp-mailer-option wp-mail-smtp-mailer-option-<?php echo esc_attr( $provider->get_slug() ); ?> <?php echo $mailer === $provider->get_slug() ? 'active' : 'hidden'; ?>">
-
-						<!-- Mailer Title/Notice/Description -->
-						<div class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-content wp-mail-smtp-clear section-heading <?php echo empty( $provider_desc ) ? 'no-desc' : ''; ?>" id="wp-mail-smtp-setting-row-email-heading">
-							<div class="wp-mail-smtp-setting-field">
-								<?php if ( $provider->is_disabled() ) : ?>
-									<?php $provider->display_options(); ?>
-								<?php else : ?>
-									<h2><?php echo $provider->get_title(); ?></h2>
-									<?php
-									$provider_edu_notice = $provider->get_notice( 'educational' );
-									$is_dismissed        = (bool) get_user_meta( get_current_user_id(), "wp_mail_smtp_notice_educational_for_{$provider->get_slug()}_dismissed", true );
-									if ( ! empty( $provider_edu_notice ) && ! $is_dismissed ) :
-										?>
-										<p class="inline-notice inline-edu-notice"
-											data-notice="educational"
-											data-mailer="<?php echo esc_attr( $provider->get_slug() ); ?>">
-											<a href="#" title="<?php esc_attr_e( 'Dismiss this notice', 'wp-mail-smtp' ); ?>"
-												class="wp-mail-smtp-mailer-notice-dismiss js-wp-mail-smtp-mailer-notice-dismiss">
-												<span class="dashicons dashicons-dismiss"></span>
-											</a>
-
-											<?php echo $provider_edu_notice; ?>
-										</p>
-									<?php endif; ?>
-
-									<?php if ( ! empty( $provider_desc ) ) : ?>
-										<p class="desc"><?php echo $provider_desc; ?></p>
-									<?php endif; ?>
-								<?php endif; ?>
-							</div>
-						</div>
-
-						<?php $provider->display_options(); ?>
-					</div>
-
-				<?php endforeach; ?>
-
-			</div>
+			<?php $this->display_backup_connection_education(); ?>
 
 			<?php
 			$settings_content = apply_filters( 'wp_mail_smtp_admin_settings_tab_display', ob_get_clean() );
-			echo $settings_content; // phpcs:ignore
+			echo $settings_content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			?>
 
 			<?php $this->display_save_btn(); ?>
@@ -373,46 +160,6 @@ class SettingsTab extends PageAbstract {
 	 */
 	public static function display_license_key_field_content( $options ) {
 		?>
-
-		<p><?php esc_html_e( 'You\'re using WP Mail SMTP Lite - no license needed. Enjoy!', 'wp-mail-smtp' ); ?> 🙂</p>
-
-		<p>
-			<?php
-			printf(
-				wp_kses( /* translators: %s - WPMailSMTP.com upgrade URL. */
-					__( 'To unlock more features consider <strong><a href="%s" target="_blank" rel="noopener noreferrer" class="wp-mail-smtp-upgrade-modal">upgrading to PRO</a></strong>.', 'wp-mail-smtp' ),
-					array(
-						'a'      => array(
-							'href'   => array(),
-							'class'  => array(),
-							'target' => array(),
-							'rel'    => array(),
-						),
-						'strong' => array(),
-					)
-				),
-				esc_url( wp_mail_smtp()->get_upgrade_link( 'general-license-key' ) )
-			);
-			?>
-		</p>
-
-		<p class="desc">
-			<?php
-			printf(
-				wp_kses( /* Translators: %s - discount value $50 */
-					__( 'As a valued WP Mail SMTP Lite user you receive <strong>%s off</strong>, automatically applied at checkout!', 'wp-mail-smtp' ),
-					array(
-						'strong' => array(),
-						'br'     => array(),
-					)
-				),
-				'$50'
-			);
-			?>
-		</p>
-
-		<hr>
-
 		<p>
 			<?php esc_html_e( 'Already purchased? Simply enter your license key below to connect with WP Mail SMTP Pro!', 'wp-mail-smtp' ); ?>
 		</p>
@@ -465,167 +212,204 @@ class SettingsTab extends PageAbstract {
 		if ( (bool) $is_dismissed === true ) {
 			return;
 		}
+
+		$assets_url  = wp_mail_smtp()->assets_url;
+		$screenshots = [
+			[
+				'url'           => $assets_url . '/images/logs/archive.png',
+				'url_thumbnail' => $assets_url . '/images/logs/archive-thumbnail.png',
+				'title'         => __( 'Email Logs', 'wp-mail-smtp' ),
+			],
+			[
+				'url'           => $assets_url . '/images/logs/single.png',
+				'url_thumbnail' => $assets_url . '/images/logs/single-thumbnail.png',
+				'title'         => __( 'Individual Email Log', 'wp-mail-smtp' ),
+			],
+			[
+				'url'           => $assets_url . '/images/email-reports/screenshot-01.png',
+				'url_thumbnail' => $assets_url . '/images/email-reports/thumbnail-01.png',
+				'title'         => __( 'Email Reports', 'wp-mail-smtp' ),
+			],
+		];
 		?>
 
-		<div id="wp-mail-smtp-pro-banner">
-
+		<div id="wp-mail-smtp-pro-banner" class="wp-mail-smtp-upgrade-banner">
 			<span class="wp-mail-smtp-pro-banner-dismiss">
 				<button id="wp-mail-smtp-pro-banner-dismiss">
-					<span class="dashicons dashicons-dismiss"></span>
+					<img src="<?php echo esc_url( wp_mail_smtp()->assets_url . '/images/icons/close.svg' ); ?>" alt="<?php esc_attr_e( 'Close', 'wp-mail-smtp' ); ?>">
 				</button>
 			</span>
 
-			<h2>
-				<?php esc_html_e( 'Get WP Mail SMTP Pro and Unlock all the Powerful Features', 'wp-mail-smtp' ); ?>
-			</h2>
+			<div class="wp-mail-smtp-upgrade-banner__row">
+				<h3 class="wp-mail-smtp-upgrade-banner__heading">
+					<?php esc_html_e( 'Level Up Your Email Game - Get Pro Features Now', 'wp-mail-smtp' ); ?>
+				</h3>
+				<p class="wp-mail-smtp-upgrade-banner__subheading">
+					<?php echo wp_kses( __( 'Upgrade and join over <strong>4,000,000</strong> websites!', 'wp-mail-smtp' ), [ 'strong' => [] ] ); ?>
+				</p>
+			</div>
 
-			<p>
-				<?php esc_html_e( 'Thanks for being a loyal WP Mail SMTP user. Upgrade to WP Mail SMTP Pro to unlock more awesome features and experience why WP Mail SMTP is the most popular SMTP plugin.', 'wp-mail-smtp' ); ?>
-			</p>
+			<div class="wp-mail-smtp-upgrade-banner__row">
+				<h3 class="wp-mail-smtp-upgrade-banner__heading">
+					<?php esc_html_e( 'Key Features You’ll Unlock:', 'wp-mail-smtp' ); ?>
+				</h3>
 
-			<p>
-				<?php esc_html_e( 'We know that you will truly love WP Mail SMTP. It\'s used by over 2,000,000 websites.', 'wp-mail-smtp' ); ?>
-			</p>
-
-			<p><strong><?php esc_html_e( 'Pro Features:', 'wp-mail-smtp' ); ?></strong></p>
-
-			<div class="benefits">
-				<ul>
-					<li><?php esc_html_e( 'Manage Notifications - control which emails your site sends', 'wp-mail-smtp' ); ?></li>
-					<li><?php esc_html_e( 'Email Logging - keep track of every email sent from your site', 'wp-mail-smtp' ); ?></li>
-					<li><?php esc_html_e( 'Multisite Support - Network settings for easy management', 'wp-mail-smtp' ); ?></li>
-					<li><?php esc_html_e( 'Office 365 - send emails using your Office 365 account', 'wp-mail-smtp' ); ?></li>
-					<li><?php esc_html_e( 'Amazon SES - harness the power of AWS', 'wp-mail-smtp' ); ?></li>
-					<li><?php esc_html_e( 'Outlook.com - send emails using your Outlook.com account', 'wp-mail-smtp' ); ?></li>
-					<li><?php esc_html_e( 'Zoho Mail - use your Zoho Mail account', 'wp-mail-smtp' ); ?></li>
-					<li><?php esc_html_e( 'Access to our world class support team', 'wp-mail-smtp' ); ?></li>
-				</ul>
-				<ul>
-					<li><?php esc_html_e( 'White Glove Setup - sit back and relax while we handle everything for you', 'wp-mail-smtp' ); ?></li>
-					<li class="arrow-right"><?php esc_html_e( 'Install WP Mail SMTP Pro plugin', 'wp-mail-smtp' ); ?></li>
-					<li class="arrow-right"><?php esc_html_e( 'Set up domain name verification (DNS)', 'wp-mail-smtp' ); ?></li>
-					<li class="arrow-right"><?php esc_html_e( 'Configure SMTP.com or Mailgun service', 'wp-mail-smtp' ); ?></li>
-					<li class="arrow-right"><?php esc_html_e( 'Set up WP Mail SMTP Pro plugin', 'wp-mail-smtp' ); ?></li>
-					<li class="arrow-right"><?php esc_html_e( 'Test and verify email delivery', 'wp-mail-smtp' ); ?></li>
+				<ul class="wp-mail-smtp-upgrade-banner__features">
+					<li>
+						<h5><?php esc_html_e( 'Peace of Mind - Never wonder about your email status', 'wp-mail-smtp' ); ?></h5>
+						<p><?php esc_html_e( 'Email Logging, Alerts, and Backup Connection', 'wp-mail-smtp' ); ?></p>
+					</li>
+					<li>
+						<h5><?php esc_html_e( 'Professional Email Services - Access enterprise-grade email providers', 'wp-mail-smtp' ); ?></h5>
+						<p><?php esc_html_e( 'Gmail one-click setup, Microsoft 365 / Outlook, Amazon SES, and Zoho Mail', 'wp-mail-smtp' ); ?></p>
+					</li>
+					<li>
+						<h5><?php esc_html_e( 'Effortless Management - Control your email experience', 'wp-mail-smtp' ); ?></h5>
+						<p><?php esc_html_e( 'Smart Routing, Multisite Support, and Manage Notifications', 'wp-mail-smtp' ); ?></p>
+					</li>
+					<li>
+						<h5><?php esc_html_e( 'White Glove Setup - Sit back while we handle everything', 'wp-mail-smtp' ); ?></h5>
+						<p><?php esc_html_e( 'Professional Setup and World-Class Support', 'wp-mail-smtp' ); ?></p>
+					</li>
 				</ul>
 			</div>
 
-			<p>
-				<?php
-				printf(
-					wp_kses( /* translators: %s - WPMailSMTP.com URL. */
-						__( '<a href="%s" target="_blank" rel="noopener noreferrer">Get WP Mail SMTP Pro Today and Unlock all the Powerful Features &raquo;</a>', 'wp-mail-smtp' ),
-						array(
-							'a'      => array(
-								'href'   => array(),
-								'target' => array(),
-								'rel'    => array(),
-							),
-							'strong' => array(),
-						)
-					),
-					esc_url( wp_mail_smtp()->get_upgrade_link( 'general-cta' ) )
-				);
-				?>
-			</p>
+			<div class="wp-mail-smtp-upgrade-banner__row">
+				<a href="<?php echo esc_url( wp_mail_smtp()->get_upgrade_link( 'general-cta' ) ); ?>" target="_blank" rel="noopener noreferrer" class="wp-mail-smtp-btn wp-mail-smtp-btn-secondary wp-mail-smtp-upgrade-banner__upgrade-btn">
+					<?php esc_html_e( 'Upgrade to WP Mail SMTP Pro', 'wp-mail-smtp' ); ?>
+				</a>
 
-			<p>
-				<?php
-				printf(
-					wp_kses( /* Translators: %s - discount value $50. */
-						__( '<strong>Bonus:</strong> WP Mail SMTP users get <span class="price-off">%s off regular price</span>, automatically applied at checkout.', 'wp-mail-smtp' ),
-						array(
-							'strong' => array(),
-							'span'   => array(
-								'class' => array(),
+				<div class="wp-mail-smtp-upgrade-banner__discount-line">
+					<img src="<?php echo esc_url( wp_mail_smtp()->assets_url . '/images/icons/badge-percent.svg' ); ?>" alt="<?php esc_attr_e( 'Discount', 'wp-mail-smtp' ); ?>">
+					<p>
+						<?php
+						printf(
+							wp_kses( /* Translators: %s - discount value $50. */
+								__( '<strong>%s OFF</strong> for WP Mail SMTP users, applied at checkout.', 'wp-mail-smtp' ),
+								[
+									'strong' => [],
+								]
 							),
-						)
-					),
-					'$50'
-				);
-				?>
-			</p>
+							'$50'
+						);
+						?>
+					</p>
+				</div>
+			</div>
 
+			<div class="wp-mail-smtp-upgrade-banner__row">
+				<div class="wp-mail-smtp-product-education__screenshots wp-mail-smtp-product-education__screenshots--three">
+					<?php foreach ( $screenshots as $screenshot ) : ?>
+						<div>
+							<a href="<?php echo esc_url( $screenshot['url'] ); ?>" data-lity data-lity-desc="<?php echo esc_attr( $screenshot['title'] ); ?>">
+								<img src="<?php echo esc_url( $screenshot['url_thumbnail'] ); ?>" alt="<?php esc_attr( $screenshot['title'] ); ?>">
+							</a>
+							<span><?php echo esc_html( $screenshot['title'] ); ?></span>
+						</div>
+					<?php endforeach; ?>
+				</div>
+			</div>
 		</div>
-
 		<?php
 	}
 
 	/**
-	 * @inheritdoc
+	 * Display backup connection education section.
+	 *
+	 * @since 3.7.0
 	 */
-	public function process_post( $data ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
+	private function display_backup_connection_education() {
 
-		$this->check_admin_referer();
-
-		$options = new Options();
-		$old_opt = $options->get_all();
-
-		// When checkbox is unchecked - it's not submitted at all, so we need to define its default false value.
-		if ( ! isset( $data['mail']['from_email_force'] ) ) {
-			$data['mail']['from_email_force'] = false;
-		}
-		if ( ! isset( $data['mail']['from_name_force'] ) ) {
-			$data['mail']['from_name_force'] = false;
-		}
-		if ( ! isset( $data['mail']['return_path'] ) ) {
-			$data['mail']['return_path'] = false;
-		}
-		if ( ! isset( $data['smtp']['autotls'] ) ) {
-			$data['smtp']['autotls'] = false;
-		}
-		if ( ! isset( $data['smtp']['auth'] ) ) {
-			$data['smtp']['auth'] = false;
+		if ( wp_mail_smtp()->is_pro() ) {
+			return;
 		}
 
-		// When switching mailers.
-		if (
-			! empty( $old_opt['mail']['mailer'] ) &&
-			! empty( $data['mail']['mailer'] ) &&
-			$old_opt['mail']['mailer'] !== $data['mail']['mailer']
-		) {
+		$upgrade_link_url = wp_mail_smtp()->get_upgrade_link(
+			[
+				'medium'  => 'Backup Connection Settings',
+				'content' => 'Upgrade to WP Mail SMTP Pro Link',
+			]
+		);
+		?>
+		<div class="wp-mail-smtp-setting-row wp-mail-smtp-setting-row-content wp-mail-smtp-clear section-heading">
+			<div class="wp-mail-smtp-setting-field">
+				<h4 class="wp-mail-smtp-product-education__heading">
+					<?php esc_html_e( 'Backup Connection', 'wp-mail-smtp' ); ?>
+				</h4>
+				<p class="wp-mail-smtp-product-education__description">
+					<?php
+					echo wp_kses(
+						sprintf( /* translators: %s - WPMailSMTP.com Upgrade page URL. */
+							__( 'Don’t worry about losing emails. Add an additional connection, then set it as your Backup Connection. Emails that fail to send with the Primary Connection will be sent via the selected Backup Connection. <a href="%s" target="_blank" rel="noopener noreferrer">Upgrade to WP Mail SMTP Pro!</a>', 'wp-mail-smtp' ),
+							esc_url( $upgrade_link_url )
+						),
+						[
+							'a' => [
+								'href'   => [],
+								'rel'    => [],
+								'target' => [],
+							],
+						]
+					);
+					?>
+				</p>
+			</div>
+		</div>
+		<div class="wp-mail-smtp-setting-row wp-mail-smtp-clear">
+			<div class="wp-mail-smtp-setting-label">
+				<label>
+					<?php esc_html_e( 'Backup Connection', 'wp-mail-smtp' ); ?>
+				</label>
+			</div>
+			<div class="wp-mail-smtp-setting-field">
+				<div class="wp-mail-smtp-connection-selector">
+					<label>
+						<input type="radio" checked/>
+						<span><?php esc_attr_e( 'None', 'wp-mail-smtp' ); ?></span>
+					</label>
+				</div>
+				<p class="desc">
+					<?php
+					echo wp_kses(
+						sprintf( /* translators: %s - Smart routing settings page url. */
+							__( 'Once you add an <a href="%s">additional connection</a>, you can select it here.', 'wp-mail-smtp' ),
+							add_query_arg(
+								[
+									'tab' => 'connections',
+								],
+								wp_mail_smtp()->get_admin()->get_admin_page_url()
+							)
+						),
+						[
+							'a' => [
+								'href'   => [],
+								'target' => [],
+								'rel'    => [],
+							],
+						]
+					);
+					?>
+				</p>
+			</div>
+		</div>
+		<?php
+	}
 
-			// Remove all debug messages when switching mailers.
-			Debug::clear();
+	/**
+	 * Process tab form submission ($_POST ).
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $data Post data specific for the plugin.
+	 */
+	public function process_post( $data ) {
 
-			// Save correct from email address if Zoho or Outlook mailers are already configured.
-			if (
-				in_array( $data['mail']['mailer'], [ 'zoho', 'outlook' ], true ) &&
-				! empty( $old_opt[ $data['mail']['mailer'] ]['user_details']['email'] )
-			) {
-				$data['mail']['from_email'] = $old_opt[ $data['mail']['mailer'] ]['user_details']['email'];
-			}
-		}
+		$connection          = wp_mail_smtp()->get_connections_manager()->get_primary_connection();
+		$connection_settings = new ConnectionSettings( $connection );
 
-		$to_redirect = false;
+		$old_data = $connection->get_options()->get_all();
 
-		// Old and new Gmail client id/secret values are different - we need to invalidate tokens and scroll to Auth button.
-		if (
-			$options->get( 'mail', 'mailer' ) === 'gmail' &&
-			! empty( $data['gmail']['client_id'] ) &&
-			! empty( $data['gmail']['client_secret'] ) &&
-			(
-				$options->get( 'gmail', 'client_id' ) !== $data['gmail']['client_id'] ||
-				$options->get( 'gmail', 'client_secret' ) !== $data['gmail']['client_secret']
-			)
-		) {
-			unset( $old_opt['gmail'] );
-
-			if (
-				! empty( $data['gmail']['client_id'] ) &&
-				! empty( $data['gmail']['client_secret'] )
-			) {
-				$to_redirect = true;
-			}
-		}
-
-		// Prevent redirect to setup wizard from settings page after successful auth.
-		if (
-			! empty( $data['mail']['mailer'] ) &&
-			in_array( $data['mail']['mailer'], [ 'gmail', 'outlook', 'zoho' ], true )
-		) {
-			$data[ $data['mail']['mailer'] ]['is_setup_wizard_auth'] = false;
-		}
+		$data = $connection_settings->process( $data, $old_data );
 
 		/**
 		 * Filters mail settings before save.
@@ -637,10 +421,13 @@ class SettingsTab extends PageAbstract {
 		$data = apply_filters( 'wp_mail_smtp_settings_tab_process_post', $data );
 
 		// All the sanitization is done in Options class.
-		$options->set( $data, false, false );
+		Options::init()->set( $data, false, false );
 
-		if ( $to_redirect ) {
-			wp_redirect( $_POST['_wp_http_referer'] . '#wp-mail-smtp-setting-row-gmail-authorize' );
+		$connection_settings->post_process( $data, $old_data );
+
+		if ( $connection_settings->get_scroll_to() !== false ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+			wp_safe_redirect( sanitize_text_field( wp_unslash( $_POST['_wp_http_referer'] ) ) . $connection_settings->get_scroll_to() );
 			exit;
 		}
 

@@ -571,7 +571,7 @@ header {
 }
 
 p.header_pic2 img {
-  background-image: url(/wp-content/themes/marlin-lite/images/header_back.jpg);
+  background-image: url(/cms/wp-content/themes/marlin-lite/images/header_back.jpg);
   background-repeat: no-repeat;
   background-size: 100% auto;
   width: 100%;
@@ -890,7 +890,7 @@ img .nursing_pic {
 }
 
 #nursing {
-  background-image: url(/wp-content/themes/marlin-lite/images/top-center.png);
+  background-image: url(/cms/wp-content/themes/marlin-lite/images/top-center.png);
   background-position: top;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -1110,7 +1110,7 @@ div.edu_area {
 
 div.eduarea_title {
   font-size: 1.8em;
-  background-image: url(/wp-content/themes/marlin-lite/images/kureyon_green.png);
+  background-image: url(/cms/wp-content/themes/marlin-lite/images/kureyon_green.png);
   background-repeat: no-repeat;
   background-position: center 75%;
   margin-bottom: 2%;
@@ -1225,7 +1225,7 @@ div .Childhood_motion {
 p.edulife_title {
   font-size: 1.8em;
   padding: 3% 0 1% 0;
-  background-image: url(/wp-content/themes/marlin-lite/images/kureyon_green.png);
+  background-image: url(/cms/wp-content/themes/marlin-lite/images/kureyon_green.png);
   background-repeat: no-repeat;
   background-position: center 92%;
   background-size: 10%;
@@ -1298,7 +1298,7 @@ p.edumotion_title {
   margin: 0%;
   clear: both;
   padding: 12% 0 5% 0;
-  background-image: url(/wp-content/themes/marlin-lite/images/kureyon_green.png);
+  background-image: url(/cms/wp-content/themes/marlin-lite/images/kureyon_green.png);
   background-repeat: no-repeat;
   background-position: center 92%;
   margin-bottom: 2%;
@@ -1307,7 +1307,7 @@ p.edumotion_title {
 p.edueat_title {
   font-size: 2em;
   padding: 5% 0 5% 0;
-  background-image: url(/wp-content/themes/marlin-lite/images/kureyon_green.png);
+  background-image: url(/cms/wp-content/themes/marlin-lite/images/kureyon_green.png);
   background-repeat: no-repeat;
   background-position: center 92%;
   margin-bottom: 2%;
@@ -1330,7 +1330,7 @@ p.lesson_title2 {
   text-align: center;
   clear: both;
   padding: 10% 0 5% 0;
-  background-image: url(/wp-content/themes/marlin-lite/images/kureyon_green.png);
+  background-image: url(/cms/wp-content/themes/marlin-lite/images/kureyon_green.png);
   background-repeat: no-repeat;
   background-position: center 92%;
   margin-bottom: 2%;
@@ -1470,7 +1470,7 @@ p.eduflow_title {
   margin: 4%;
   text-align: center;
   padding: 15% 0 5% 0;
-  background-image: url(/wp-content/themes/marlin-lite/images/kureyon_green.png);
+  background-image: url(/cms/wp-content/themes/marlin-lite/images/kureyon_green.png);
   background-repeat: no-repeat;
   background-position: center 92%;
 }
@@ -1513,7 +1513,7 @@ p.six_event {
 p.six_event1 {
   font-size: 1.7em;
   padding: 15% 0 5% 0;
-  background-image: url(/wp-content/themes/marlin-lite/images/kureyon_green.png);
+  background-image: url(/cms/wp-content/themes/marlin-lite/images/kureyon_green.png);
   background-repeat: no-repeat;
   background-position: center 92%;
   text-align: center;
@@ -1553,7 +1553,7 @@ p.event_write {
 div.infant_flow {
   float: left;
   width: 43%;
-  background-image: url(/wp-content/themes/marlin-lite/images/kids_okasi-min.png);
+  background-image: url(/cms/wp-content/themes/marlin-lite/images/kids_okasi-min.png);
   background-position: top left;
   background-repeat: no-repeat;
   background-position-y: 93%;

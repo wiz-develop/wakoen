@@ -20,22 +20,40 @@ namespace WPMailSMTP\Vendor\Google\Service\Gmail;
 class ListThreadsResponse extends \WPMailSMTP\Vendor\Google\Collection
 {
     protected $collection_key = 'threads';
+    /**
+     * @var string
+     */
     public $nextPageToken;
+    /**
+     * @var string
+     */
     public $resultSizeEstimate;
-    protected $threadsType = \WPMailSMTP\Vendor\Google\Service\Gmail\Thread::class;
+    protected $threadsType = Thread::class;
     protected $threadsDataType = 'array';
+    /**
+     * @param string
+     */
     public function setNextPageToken($nextPageToken)
     {
         $this->nextPageToken = $nextPageToken;
     }
+    /**
+     * @return string
+     */
     public function getNextPageToken()
     {
         return $this->nextPageToken;
     }
+    /**
+     * @param string
+     */
     public function setResultSizeEstimate($resultSizeEstimate)
     {
         $this->resultSizeEstimate = $resultSizeEstimate;
     }
+    /**
+     * @return string
+     */
     public function getResultSizeEstimate()
     {
         return $this->resultSizeEstimate;
@@ -56,4 +74,4 @@ class ListThreadsResponse extends \WPMailSMTP\Vendor\Google\Collection
     }
 }
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\WPMailSMTP\Vendor\Google\Service\Gmail\ListThreadsResponse::class, 'WPMailSMTP\\Vendor\\Google_Service_Gmail_ListThreadsResponse');
+\class_alias(ListThreadsResponse::class, 'WPMailSMTP\\Vendor\\Google_Service_Gmail_ListThreadsResponse');

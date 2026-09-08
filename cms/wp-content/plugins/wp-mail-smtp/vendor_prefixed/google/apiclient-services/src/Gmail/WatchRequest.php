@@ -20,33 +20,78 @@ namespace WPMailSMTP\Vendor\Google\Service\Gmail;
 class WatchRequest extends \WPMailSMTP\Vendor\Google\Collection
 {
     protected $collection_key = 'labelIds';
+    /**
+     * @var string
+     */
     public $labelFilterAction;
+    /**
+     * @var string
+     */
+    public $labelFilterBehavior;
+    /**
+     * @var string[]
+     */
     public $labelIds;
+    /**
+     * @var string
+     */
     public $topicName;
+    /**
+     * @param string
+     */
     public function setLabelFilterAction($labelFilterAction)
     {
         $this->labelFilterAction = $labelFilterAction;
     }
+    /**
+     * @return string
+     */
     public function getLabelFilterAction()
     {
         return $this->labelFilterAction;
     }
+    /**
+     * @param string
+     */
+    public function setLabelFilterBehavior($labelFilterBehavior)
+    {
+        $this->labelFilterBehavior = $labelFilterBehavior;
+    }
+    /**
+     * @return string
+     */
+    public function getLabelFilterBehavior()
+    {
+        return $this->labelFilterBehavior;
+    }
+    /**
+     * @param string[]
+     */
     public function setLabelIds($labelIds)
     {
         $this->labelIds = $labelIds;
     }
+    /**
+     * @return string[]
+     */
     public function getLabelIds()
     {
         return $this->labelIds;
     }
+    /**
+     * @param string
+     */
     public function setTopicName($topicName)
     {
         $this->topicName = $topicName;
     }
+    /**
+     * @return string
+     */
     public function getTopicName()
     {
         return $this->topicName;
     }
 }
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\WPMailSMTP\Vendor\Google\Service\Gmail\WatchRequest::class, 'WPMailSMTP\\Vendor\\Google_Service_Gmail_WatchRequest');
+\class_alias(WatchRequest::class, 'WPMailSMTP\\Vendor\\Google_Service_Gmail_WatchRequest');

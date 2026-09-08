@@ -19,24 +19,42 @@ namespace WPMailSMTP\Vendor\Google\Service\Gmail;
 
 class WatchResponse extends \WPMailSMTP\Vendor\Google\Model
 {
+    /**
+     * @var string
+     */
     public $expiration;
+    /**
+     * @var string
+     */
     public $historyId;
+    /**
+     * @param string
+     */
     public function setExpiration($expiration)
     {
         $this->expiration = $expiration;
     }
+    /**
+     * @return string
+     */
     public function getExpiration()
     {
         return $this->expiration;
     }
+    /**
+     * @param string
+     */
     public function setHistoryId($historyId)
     {
         $this->historyId = $historyId;
     }
+    /**
+     * @return string
+     */
     public function getHistoryId()
     {
         return $this->historyId;
     }
 }
 // Adding a class alias for backwards compatibility with the previous class name.
-\class_alias(\WPMailSMTP\Vendor\Google\Service\Gmail\WatchResponse::class, 'WPMailSMTP\\Vendor\\Google_Service_Gmail_WatchResponse');
+\class_alias(WatchResponse::class, 'WPMailSMTP\\Vendor\\Google_Service_Gmail_WatchResponse');

@@ -7,10 +7,10 @@ Template Name:education
 
 <div class="education_page">
 		<div class="main-policy">
-		<img src=/wp-content/themes/marlin-lite/images/frame_cloverup.png alt="" class="flame_cover2">
+		<img src=/cms/wp-content/themes/marlin-lite/images/frame_cloverup.png alt="" class="flame_cover2">
 		<p class="policy_title">子ども一人ひとりの人格を大切に</p>
 		
-		<img src=/wp-content/themes/marlin-lite/images/frame_cloverdown.png alt="" class="flame_cover">
+		<img src=/cms/wp-content/themes/marlin-lite/images/frame_cloverdown.png alt="" class="flame_cover">
 		</div>
 </div>
 	<div id="life_motion">
@@ -20,7 +20,7 @@ Template Name:education
 			</p>
 			<div class="wakoen-life">
 				<div class="life_pic">
-					<img src=/wp-content/themes/marlin-lite/images/sozai_rion.png>
+					<img src=/cms/wp-content/themes/marlin-lite/images/sozai_rion.png>
 				</div>
 				<div class="edu_write2 wakoen-life_tx">
 					年間を通しての規則正しい生活の経験は、子どもの生活リズムを安定させ、自分の生活の見通しを持てるようになり、物事に主体的に、そして意欲的に取り組む力を育てます。
@@ -34,7 +34,7 @@ Template Name:education
 			</p>
 			<div class="wakoen-life wakoen-fun">
 				<div class="life_pic">
-					<img src=/wp-content/themes/marlin-lite/images/yuugu.png>
+					<img src=/cms/wp-content/themes/marlin-lite/images/yuugu.png>
 				</div>
 				<div class="edu_write2">
 				得意な子も、苦手な子も、自ら遊んで熱中出来又やってみたい、もっと出来るようになりたいと思えるように、運動遊びを取り入れています。<br>友達同士お互いを意識し合って、共感し合えることで、運動遊びが大好きになります。<br>
@@ -94,7 +94,7 @@ Template Name:education
 			<p class="eat_write4">自分で上手に食べれるようになる</p>
 			
 			<p class="eat_write">などの目標を持ち、心と体の成長を助けていきたいと思っています。</p>
-			<div class="allelgy_pic"><img src="/wp-content/themes/marlin-lite/images/shokuji.jpg" alt="和光園食事">
+			<div class="allelgy_pic"><img src="/cms/wp-content/themes/marlin-lite/images/shokuji.jpg" alt="和光園食事">
 			</div>
 			<p></p>
 <p class="edu_allergy">アレルギーへの対応</p>
@@ -107,26 +107,26 @@ Template Name:education
 		<p class="edulife_title">和光園で行っていること</p>
 <div class="evegr_area">
 	<div class="event_gr">
-<div class="event-image"><img src=/wp-content/themes/marlin-lite/images/text_yuusuzumikai-min.png alt="" class="event_icon"></div>
+<div class="event-image"><img src=/cms/wp-content/themes/marlin-lite/images/text_yuusuzumikai-min.png alt="" class="event_icon"></div>
 <p class="six_event">行事</p>
 <p class="event_write">日々の保育の参観の場と考え、子どもたちにとって楽しく、また子どもたちに過度の負担がないように工夫しています。</p>
 </div>
 
 <div class="event_gr">
-<div class="event-image"><img src=/wp-content/themes/marlin-lite/images/gosui2-min.png alt="" class="event_icon"></div>
+<div class="event-image"><img src=/cms/wp-content/themes/marlin-lite/images/gosui2-min.png alt="" class="event_icon"></div>
 <p class="six_event">午睡</p>
 <p class="event_write">ホコリの発生を防ぎ、健康な眠りを保証してあげるために、0・1歳児に、午睡用コット（簡易ベッド）を使用します。</p>
 </div>
 
 <div class="event_gr">
-<div class="event-image"><img src=/wp-content/themes/marlin-lite/images/text_ehon-min.png alt="和光園 絵本" class="event_icon"></div>
+<div class="event-image"><img src=/cms/wp-content/themes/marlin-lite/images/text_ehon-min.png alt="和光園 絵本" class="event_icon"></div>
 <p class="six_event">絵本</p>
 <p class="event_write">子どもたちに良質な絵本にたくさん出会って欲しいと願い、保育の中に多く取り入れています。<br>
 また、貸し出しを行ったりしています。</p>
 </div>
 
 <div class="event_gr">
-<div class="event-image"><img src=/wp-content/themes/marlin-lite/images/birthday_cake-min.png alt="" class="event_icon"></div>
+<div class="event-image"><img src=/cms/wp-content/themes/marlin-lite/images/birthday_cake-min.png alt="" class="event_icon"></div>
 <p class="six_event">誕生会</p>
 <p class="event_write">生まれてきてくれてありがとう。<br>
 1年に1回しかない大切な日です。<br>
@@ -134,13 +134,13 @@ Template Name:education
 </div>
 
 <div class="event_gr">
-<div class="event-image"><img src=/wp-content/themes/marlin-lite/images/kenkoushindan-min.png alt="和光園 健康管理" class="event_icon"></div>
+<div class="event-image"><img src=/cms/wp-content/themes/marlin-lite/images/kenkoushindan-min.png alt="和光園 健康管理" class="event_icon"></div>
 <p class="six_event">健康管理</p>
 <p class="event_write">子どもの健康状態を把握するために看護師の巡回・身体測定・尿検査・健康診断・歯科検診・保健衛生プログラムを実施しています。</p>
 </div>
 
 <div class="event_gr">
-<div class="event-image"><img src=/wp-content/themes/marlin-lite/images/ennsha-min.png alt="" class="event_icon"></div>
+<div class="event-image"><img src=/cms/wp-content/themes/marlin-lite/images/ennsha-min.png alt="" class="event_icon"></div>
 <p class="six_event">園舎</p>
 <p class="event_write">園舎には徐々に木のぬくもりを取り入れ、世間で目にするキャラクター等を用いるのではなく、自然物を多く取り入れ、家庭と同じような空間の中に、落ち着いた雰囲気を持たせる工夫をしています。</p>
 </div>
@@ -158,13 +158,13 @@ Template Name:education
 			<br>
 			<p class ="baby_time07">9:00〜</p>
 			<p class ="infant_nine">おさんぽ・外気浴・年齢にあったあそび</p>
-			<img src=/wp-content/themes/marlin-lite/images/kids_koushin-min.png alt="和光園
+			<img src=/cms/wp-content/themes/marlin-lite/images/kids_koushin-min.png alt="和光園
 遊び" class="koushin_pic">
 			<p class ="baby_time07">11:00〜</p>
 			<p class="infant_eleven">給食</p>
 			<p class ="baby_time07">12:00〜</p>
 			<p class="infant_twel">午睡</p>
-			<img src=/wp-content/themes/marlin-lite/images/gosui2-min.png alt="和光園
+			<img src=/cms/wp-content/themes/marlin-lite/images/gosui2-min.png alt="和光園
 遊び" class="gosui_pic">
 			<p class ="baby_time07">15:00</p>
 			<p class="infant_fif">おやつ・あそび</p>
@@ -174,7 +174,7 @@ Template Name:education
 			</div>
 			
 			<div class="timetable_flow">
-			<img src=/wp-content/themes/marlin-lite/images/timelabel-min.png alt="和光園一日" class="dayflow_time">
+			<img src=/cms/wp-content/themes/marlin-lite/images/timelabel-min.png alt="和光園一日" class="dayflow_time">
 			</div>
 			
 			<div class="youji_flow">
@@ -185,12 +185,12 @@ Template Name:education
 			<p class="child_time07">11:30</p>
 			<p class="youji_eleven2">運動あそび</p>
 			<p class="youji_circletime">サークルタイム</p>
-			<img src=/wp-content/themes/marlin-lite/images/asobi_aicon.png alt="和光園
+			<img src=/cms/wp-content/themes/marlin-lite/images/asobi_aicon.png alt="和光園
 遊び" class="asobi-youji">
 			
 			<p class="child_time07">11:30〜</p>
 			<p class="youji_eleven">給食</p>
-			<img src=/wp-content/themes/marlin-lite/images/itadakimasu.png alt="和光園
+			<img src=/cms/wp-content/themes/marlin-lite/images/itadakimasu.png alt="和光園
 遊び" class="youji_eat">
 			<p class="child_time07">13:00</p>
 			<p class="youji_one">午睡(3歳児クラス)</p>
@@ -199,7 +199,7 @@ Template Name:education
 			
 			<p class="child_time07">15:00</p>
 			<p class="youji_fif">おやつ・あそび</p>
-			<img src=/wp-content/themes/marlin-lite/images/tsumiki.png alt="和光園
+			<img src=/cms/wp-content/themes/marlin-lite/images/tsumiki.png alt="和光園
 遊び" class="infant_tsumiki">
 			
 			<p class="child_time07">16:00〜</p>
@@ -221,24 +221,24 @@ Template Name:education
 			<div class="infant_titlesp">乳児期
 			<p class="subtitle_sp">(0歳児~2歳児)</p>
 			</div>
-			<img src=/wp-content/themes/marlin-lite/images/clock_0700.png alt="和光園
+			<img src=/cms/wp-content/themes/marlin-lite/images/clock_0700.png alt="和光園
 一日" class="time_sp">
 			<p class="baby_time07sp">7：00 開園</p>
 			<p class="open_timesp">順次登園</p>
-			<img src=/wp-content/themes/marlin-lite/images/clock_0900.png alt="和光園
+			<img src=/cms/wp-content/themes/marlin-lite/images/clock_0900.png alt="和光園
 一日" class="time_sp">
 			<p class ="baby_time07sp">9:00〜</p>
 			<p class="open_timesp">おさんぽ・外気浴・年齢にあったあそび</p>
-			<img src=/wp-content/themes/marlin-lite/images/clock_1100.png alt="和光園
+			<img src=/cms/wp-content/themes/marlin-lite/images/clock_1100.png alt="和光園
 一日" class="time_sp">
 			<p class ="baby_time07sp">11:00〜</p>
 			<p class="open_timesp">給食</p>
-			<img src=/wp-content/themes/marlin-lite/images/clock_1200.png alt="和光園
+			<img src=/cms/wp-content/themes/marlin-lite/images/clock_1200.png alt="和光園
 一日" class="time_sp">
 			<p class ="baby_time07sp">12:00〜</p>
 			<p class="open_timesp2">午睡</p>
 			<p>
-			<img src=/wp-content/themes/marlin-lite/images/gosui2-min.png alt="和光園
+			<img src=/cms/wp-content/themes/marlin-lite/images/gosui2-min.png alt="和光園
 遊び" class="gosui_picsp">
 			</p>
 		</div>
@@ -247,7 +247,7 @@ Template Name:education
 			<div class="youji_titlesp">幼児期
 			<p class="subtitle_sp">(3歳児~5歳児)</p>
 			</div>
-			<img src=/wp-content/themes/marlin-lite/images/clock_0700.png alt="和光園
+			<img src=/cms/wp-content/themes/marlin-lite/images/clock_0700.png alt="和光園
 一日" class="time_sp">
 			<p class="child_time07sp">7：00 開園</p>
 			<p class="open_timesp3">順次登園</p>
@@ -255,36 +255,36 @@ Template Name:education
 			<p class="child_time07sp">11:30</p>
 			<p class="open_timeundosp">運動あそび<br>
 			サークルタイム</p>
-			<img src=/wp-content/themes/marlin-lite/images/asobi_aicon.png alt="和光園
+			<img src=/cms/wp-content/themes/marlin-lite/images/asobi_aicon.png alt="和光園
 遊び" class="asobi-youjisp">
-			<img src=/wp-content/themes/marlin-lite/images/clock_1130.png alt="和光園
+			<img src=/cms/wp-content/themes/marlin-lite/images/clock_1130.png alt="和光園
 一日" class="time_sp">
 			<p class="child_time07sp">11:30〜</p>
 			<p class="open_timesp">給食</p>
 			<p>
-			<img src=/wp-content/themes/marlin-lite/images/itadakimasu.png alt="和光園
+			<img src=/cms/wp-content/themes/marlin-lite/images/itadakimasu.png alt="和光園
 遊び" class="youji_eatsp">
 			</p>
-			<img src=/wp-content/themes/marlin-lite/images/clock_0100.png alt="和光園
+			<img src=/cms/wp-content/themes/marlin-lite/images/clock_0100.png alt="和光園
 一日" class="time_sp">
 			<p class="child_time07sp">13:00</p>
 			<p class="open_timesp">午睡(3歳児クラス)<br>
 			課題あそび<br>(4・5歳児クラス)</p>
 		</div>
 		
-			<img src=/wp-content/themes/marlin-lite/images/clock_0300.png alt="和光園
+			<img src=/cms/wp-content/themes/marlin-lite/images/clock_0300.png alt="和光園
 一日" class="time_clocksp">
 			<p class="child_time07sp2">15:00</p>
 			<p class="open_timesp">おやつ・あそび</p>
 			<p>
-			<img src=/wp-content/themes/marlin-lite/images/tsumiki.png alt="和光園
+			<img src=/cms/wp-content/themes/marlin-lite/images/tsumiki.png alt="和光園
 遊び" class="infant_tsumikisp">
 			</p>
-			<img src=/wp-content/themes/marlin-lite/images/clock_0400.png alt="和光園
+			<img src=/cms/wp-content/themes/marlin-lite/images/clock_0400.png alt="和光園
 一日" class="time_clocksp">
 			<p class="child_time07sp2">16:00〜</p>
 			<p class="open_timesp">順次降園</p>
-			<img src=/wp-content/themes/marlin-lite/images/clock_0700.png alt="和光園
+			<img src=/cms/wp-content/themes/marlin-lite/images/clock_0700.png alt="和光園
 一日" class="time_clocksp">
 			<p class="time_closesp">18:30&nbsp;閉園</p>
 </div>
@@ -298,7 +298,7 @@ Template Name:education
 			<p class="eduyears_title">年間行事</p>
 		<div class="years_block">
 			<div class="spring_area">
-			<div class="season-image"><img src=/wp-content/themes/marlin-lite/images/sakura-min.png alt="和光園 春"></div>
+			<div class="season-image"><img src=/cms/wp-content/themes/marlin-lite/images/sakura-min.png alt="和光園 春"></div>
 			<p class="season_title">春</p>
 			<p class="season_write">入学式<br>
 			花祭り<br>
@@ -307,7 +307,7 @@ Template Name:education
 			</div>
 			
 			<div class="summer_area">
-			<div class="season-image"><img src=/wp-content/themes/marlin-lite/images/summer_pic.png></div>
+			<div class="season-image"><img src=/cms/wp-content/themes/marlin-lite/images/summer_pic.png></div>
 			<p class="season_title">夏</p>
 			<p class="season_write">虫歯予防デー<br>
 			発見！「手洗い・うがい」<br>
@@ -317,7 +317,7 @@ Template Name:education
 			</div>
 			
 			<div class="autum_area">
-			<div class="season-image"><img src=/wp-content/themes/marlin-lite/images/kouyou2.png></div>
+			<div class="season-image"><img src=/cms/wp-content/themes/marlin-lite/images/kouyou2.png></div>
 			<p class="season_title">秋</p>
 			<p class="season_write">秋の遊び大会<br>
 			秋の遠足<br>
@@ -325,7 +325,7 @@ Template Name:education
 			</div>
 			
 			<div class="winter_area">
-			<div class="season-image"><img src=/wp-content/themes/marlin-lite/images/snowman_pic.png></div>
+			<div class="season-image"><img src=/cms/wp-content/themes/marlin-lite/images/snowman_pic.png></div>
 			<p class="season_title">冬</p>
 			<p class="season_write">プラネタリウム<br>
 			生活発表会<br>

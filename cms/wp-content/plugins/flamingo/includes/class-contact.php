@@ -5,9 +5,9 @@ class Flamingo_Contact {
 	const post_type = 'flamingo_contact';
 	const contact_tag_taxonomy = 'flamingo_contact_tag';
 
-	public static $found_items = 0;
+	private static $found_items = 0;
 
-	public $id;
+	private $id;
 	public $email;
 	public $name;
 	public $props = array();
@@ -20,8 +20,30 @@ class Flamingo_Contact {
 				'name' => __( 'Flamingo Contacts', 'flamingo' ),
 				'singular_name' => __( 'Flamingo Contact', 'flamingo' ),
 			),
+			'public' => false,
+			'show_in_rest' => false,
 			'rewrite' => false,
 			'query_var' => false,
+			'capability_type' => array(
+			    'flamingo_edit_options',
+				'flamingo_edit_options',
+			),
+			'capabilities' => array(
+          		'edit_post' => 'flamingo_edit_contact',
+          		'read_post' => 'flamingo_edit_contact',
+          		'delete_post' => 'flamingo_delete_contact',
+          		'edit_posts' => 'flamingo_edit_contacts',
+          		'edit_others_posts' => 'flamingo_edit_contacts',
+          		'delete_posts' => 'flamingo_delete_contacts',
+          		'publish_posts' => 'flamingo_edit_contacts',
+          		'read_private_posts' => 'flamingo_edit_contacts',
+          		'read' => 'flamingo_edit_contacts',
+          		'delete_private_posts' => 'flamingo_delete_contacts',
+          		'delete_published_posts' => 'flamingo_delete_contacts',
+          		'delete_others_posts' => 'flamingo_delete_contacts',
+          		'edit_private_posts' => 'flamingo_edit_contacts',
+          		'edit_published_posts' => 'flamingo_edit_contacts',
+			),
 		) );
 
 		register_taxonomy( self::contact_tag_taxonomy, self::post_type, array(
@@ -30,8 +52,15 @@ class Flamingo_Contact {
 				'singular_name' => __( 'Flamingo Contact Tag', 'flamingo' ),
 			),
 			'public' => false,
+			'show_in_rest' => false,
 			'rewrite' => false,
 			'query_var' => false,
+			'capabilities' => array(
+				'manage_terms' => 'flamingo_edit_options',
+				'edit_terms' => 'flamingo_edit_options',
+				'delete_terms' => 'flamingo_edit_options',
+				'assign_terms' => 'flamingo_edit_options',
+			),
 		) );
 	}
 
@@ -74,6 +103,19 @@ class Flamingo_Contact {
 		return $objs;
 	}
 
+	public static function count( $args = '' ) {
+		if ( $args ) {
+			$args = wp_parse_args( $args, array(
+				'offset' => 0,
+				'post_status' => 'publish',
+			) );
+
+			self::find( $args );
+		}
+
+		return absint( self::$found_items );
+	}
+
 	public static function search_by_email( $email ) {
 		$objs = self::find( array(
 			'posts_per_page' => 1,
@@ -90,16 +132,16 @@ class Flamingo_Contact {
 	}
 
 	public static function add( $args = '' ) {
-		$defaults = array(
+		$args = wp_parse_args( $args, array(
 			'email' => '',
 			'name' => '',
 			'props' => array(),
-		);
+			'last_contacted' => '0000-00-00 00:00:00',
+		) );
 
-		$args = apply_filters( 'flamingo_add_contact',
-			wp_parse_args( $args, $defaults ) );
+		$args = apply_filters( 'flamingo_add_contact', $args );
 
-		if ( empty( $args['email'] ) || ! is_email( $args['email'] ) ) {
+		if ( empty( $args['email'] ) or ! is_email( $args['email'] ) ) {
 			return;
 		}
 
@@ -113,10 +155,10 @@ class Flamingo_Contact {
 			$obj->props = (array) $args['props'];
 		}
 
-		if ( ! empty( $args['last_contacted'] ) ) {
+		if ( '0000-00-00 00:00:00' !== $args['last_contacted'] ) {
 			$obj->last_contacted = $args['last_contacted'];
-		} else {
-			$obj->last_contacted = current_time( 'mysql' );
+		} elseif ( $datetime = date_create_immutable( 'now', wp_timezone() ) ) {
+			$obj->last_contacted = $datetime->format( 'Y-m-d H:i:s' );
 		}
 
 		$obj->save();
@@ -125,7 +167,7 @@ class Flamingo_Contact {
 	}
 
 	public function __construct( $post = null ) {
-		if ( ! empty( $post ) && ( $post = get_post( $post ) ) ) {
+		if ( ! empty( $post ) and $post = get_post( $post ) ) {
 			$this->id = $post->ID;
 			$this->email = get_post_meta( $post->ID, '_email', true );
 			$this->name = get_post_meta( $post->ID, '_name', true );
@@ -135,12 +177,22 @@ class Flamingo_Contact {
 
 			$terms = wp_get_object_terms( $this->id, self::contact_tag_taxonomy );
 
-			if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+			if ( ! empty( $terms ) and ! is_wp_error( $terms ) ) {
 				foreach ( $terms as $term ) {
 					$this->tags[] = $term->name;
 				}
 			}
 		}
+	}
+
+	public function __get( $name ) {
+		if ( 'id' === $name ) {
+			return $this->id;
+		}
+	}
+
+	public function id() {
+		return $this->id;
 	}
 
 	public function save() {
