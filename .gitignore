@@ -1,0 +1,30 @@
+.DS_Store
+Thumbs.db
+
+# Environment-specific secrets and server configuration
+wp-config.php
+cms/wp-config.php
+.env
+.env.*
+
+# Runtime and generated data
+*.log
+*.sql
+*.sql.gz
+*.zip
+*.tar
+*.tar.gz
+cms/wp-content/uploads/
+cms/wp-content/cache/
+cms/wp-content/upgrade/
+cms/wp-content/ai1wm-backups/
+cms/wp-content/backups*/
+cms/wp-content/debug.log
+cms/wp-content/wflogs/
+
+# Local migration artifacts
+_bk/
+backup/
+backups/
+temp/
+

@@ -1,0 +1,84 @@
+.hero-content {
+  overflow:auto;
+  padding:40px;
+  background-attachment:fixed;
+  //margin:20px 0;
+  //margin-top: 15px;
+  position: relative;
+  .hero-container {
+    padding: 0;
+  }
+.hvr-bounce-to-bottom:before{
+  content:"";position:absolute;z-index:-1;top:0;left:0;right:0;bottom:0;background:rgba(255, 255, 255, 0.2);
+}
+  .h-content{
+      h1.title{
+      color:@onaccent;
+      margin:0;
+    }
+    .more-button{
+      color:@onaccent;
+      padding:13px 20px;
+      font-size:16px;
+      background:@accent;
+      top: 10px;
+      border:2px solid @accent;
+      position:relative;
+      z-index:999;
+      display: inline-block;
+      outline: solid 7px fade(white, 20%);
+      border: solid 2px fade(@accent,20%);
+      &:hover {
+        padding:13px 20px;
+        font-size:16px;
+        color:@accent;
+        border:2px solid @accent;
+        background:@onaccent;
+      }
+    }
+    .excerpt {
+      margin: 20px 0;
+      font-size: 17.5px;
+      color:@onaccent;
+    }
+  }
+  .f-image{
+
+    img {
+      outline: solid 7px fade(white, 20%);
+      border: solid 2px fade(@accent,20%);
+      transition: all ease 0.5s;
+      filter: brightness(85%);
+      filter: alpha(opacity=50); /* For IE8 and earlier */
+      @media screen and (max-width: 767px) {
+        margin-top: 20px;
+      }
+    }
+    img:hover {
+      filter: brightness(100%);
+      filter: alpha(opacity=100); /* For IE8 and earlier */
+    }
+  }
+}
+@media screen and (min-width:430px) and (max-width:980px){
+  .f-image{
+
+    img {
+    margin-top: 2px}
+  }
+  .h-content{
+    margin-bottom:50px;
+    padding: 0px;
+    .more-button{
+
+      &:hover {
+        padding:13px 20px;
+        font-size:16px;
+        color:@onaccent;
+        background:@content;
+      }
+    }
+
+  }
+}
+.centered{text-align: center;}

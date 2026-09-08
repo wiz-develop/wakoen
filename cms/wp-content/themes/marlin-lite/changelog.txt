@@ -1,0 +1,47 @@
+=== Changelog ===
+
+
+= v1.0.6 - May 15, 2017 =
+-------------------------
+* UPD: marlin-lite.pot
+* FIX Mobile Menu and styling
+* FIX Gallery styling
+* Fix Comment URL/Comment Author Link ($custom_comment_form)
+* ADD Masonry - Cascading grid layout library
+* FIX minor bug
+
+= v1.0.5 - March 01, 2017 =
+---------------------------
+* UPD: marlin-lite.pot
+* UPD: Latest posts widget
+* FIX data sanitazion
+
+= v1.0.4 - Feb 17, 2017 =
+-------------------------
+* UPD: marlin-lite.pot
+* UPD: 404 error page
+* FIX minor bug
+
+= v1.0.3 - Feb 13, 2017 =
+-------------------------
+* UPD: marlin-lite.pot
+* Translation 
+* FIX minor bug
+
+= v1.0.2 - Des 02, 2016 =
+-------------------------
+* UPD: Tags style.css header
+
+= v1.0.1 - Nov 20, 2016 =
+-------------------------
+* UPD: marlin-lite.pot
+* ADD: template-full-width.php
+* UPD: screenshot.png
+* FIX Data sanitazion
+* FIX Backward Compatibility
+* FIX selectively enqueued admin script
+* FIX minor bug
+
+= v1.0 - June 20, 2016 =
+------------------------
+* Initial Release
