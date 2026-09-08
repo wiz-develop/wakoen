@@ -139,26 +139,28 @@
                 return;
             }
 
-            $('.confirm_page_submit').show();
-            $('.form_page_submit').hide();
-            $form.find('select, input[type="text"], input[type="email"], input[type="url"], input[type="tel"], input[type="date"], textarea')
+            $form.find('.confirm_page_submit').show();
+            $form.find('.form_page_submit').hide();
+            $form.find('input[type="text"], input[type="email"], input[type="url"], input[type="tel"], input[type="date"], textarea')
                 .prop('readonly', true)
                 .addClass('readonly');
+            $form.find('select').addClass('readonly none-click').attr('tabindex', '-1');
             $form.find('.checkbox-privacy, .wpcf7-checkbox, .file_attachment').addClass('none-click');
-            $form.find('input[type="checkbox"], input[type="radio"]').prop('disabled', true);
+            $form.find('input[type="checkbox"], input[type="radio"]').attr('tabindex', '-1');
             $('body,html').animate({scrollTop: 0}, 200, 'swing');
         });
 
         $(document).on('click', '#previous', function () {
             var $form = $(this).closest('.wpcf7-form');
 
-            $('.confirm_page_submit').hide();
-            $('.form_page_submit').show();
-            $form.find('select, input[type="text"], input[type="email"], input[type="url"], input[type="tel"], input[type="date"], textarea')
+            $form.find('.confirm_page_submit').hide();
+            $form.find('.form_page_submit').show();
+            $form.find('input[type="text"], input[type="email"], input[type="url"], input[type="tel"], input[type="date"], textarea')
                 .prop('readonly', false)
                 .removeClass('readonly');
+            $form.find('select').removeClass('readonly none-click').removeAttr('tabindex');
             $form.find('.checkbox-privacy, .wpcf7-checkbox, .file_attachment').removeClass('none-click');
-            $form.find('input[type="checkbox"], input[type="radio"]').prop('disabled', false);
+            $form.find('input[type="checkbox"], input[type="radio"]').removeAttr('tabindex');
         });
 
         // 確認画面→完了画面
@@ -202,12 +204,6 @@
             },
             onsubmit:     false,
             focusInvalid: false,
-          });
-          
-          /* ── 送信ボタンを押した瞬間に disabled を解除 ─────────────── */
-          /* 旧: wpcf7submit イベント  →  新: submit ボタンの click イベント */
-          $(document).on("click", "#submit", function () {
-            $(this.form).find(":disabled").prop("disabled", false);
           });
           
           /* ── validateRequiredFields（変更なし） ─────────────── */

@@ -65,10 +65,14 @@ WPForms Lite 2.0.1.1, and WP Multibyte Patch 2.9.3.
 - Kept the active theme at 1.0.6 and made no visual template change.
 - Fixed the custom Contact Form 7 confirmation flow after the plugin update:
   visit-date validation now runs only on forms that contain that field, validation completes
-  before the confirmation view is shown, disabled values are restored only for the final submit,
-  and thank-you redirects use environment-independent relative URLs.
+  before the confirmation view is shown, confirmation controls are scoped to the active form,
+  and thank-you redirects use environment-independent relative URLs. Confirmation-mode inputs
+  are read-only, while selects and choice fields remain enabled for Contact Form 7 serialization
+  but cannot be operated by pointer or keyboard.
 - Confirmation-flow JavaScript backup:
   `work/wakoen-migration/backups/test-before-confirmation-fix/marlin-scripts.js`
+- Confirmation-lock follow-up backup:
+  `work/wakoen-migration/backups/test-before-confirmation-lock-fix/marlin-scripts.js`
 
 The test environment is behind a proxy that reports the origin request as HTTP. Its excluded,
 environment-specific `wp-config.php` therefore contains this HTTPS detection before WordPress loads:
