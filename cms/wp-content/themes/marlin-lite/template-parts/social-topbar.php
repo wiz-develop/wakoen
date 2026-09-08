@@ -1,0 +1,9 @@
+<div class="social pull-right">
+	<?php if(get_theme_mod('marlin_lite_facebook')) : ?><a href="<?php echo esc_url( get_theme_mod('marlin_lite_facebook') ); ?>" target="_blank" title="<?php _e( 'Facebook', 'marlin-lite' ); ?>"><i class="fa fa-facebook"></i></a><?php endif; ?>
+	<?php if(get_theme_mod('marlin_lite_twitter')) : ?><a href="<?php echo esc_url( get_theme_mod('marlin_lite_twitter') ); ?>" target="_blank" title="<?php _e( 'Twitter', 'marlin-lite' ); ?>"><i class="fa fa-twitter"></i></a><?php endif; ?>
+	<?php if(get_theme_mod('marlin_lite_google')) : ?><a href="<?php echo esc_url( get_theme_mod('marlin_lite_google') ); ?>" target="_blank" title="<?php _e( 'Google Plus', 'marlin-lite' ); ?>"><i class="fa fa-google-plus"></i></a><?php endif; ?>
+	<?php if(get_theme_mod('marlin_lite_linkedin')) : ?><a href="<?php echo esc_url( get_theme_mod('marlin_lite_linkedin') ); ?>" target="_blank" title="<?php _e( 'LinkedIn', 'marlin-lite' ); ?>"><i class="fa fa-linkedin"></i></a><?php endif; ?>
+	<?php if(get_theme_mod('marlin_lite_youtube')) : ?><a href="<?php echo esc_url( get_theme_mod('marlin_lite_youtube') ); ?>" target="_blank" title="<?php _e( 'YouTube', 'marlin-lite' ); ?>"><i class="fa fa-youtube-play"></i></a><?php endif; ?>
+	<?php if(get_theme_mod('marlin_lite_instagram')) : ?><a href="<?php echo esc_url( get_theme_mod('marlin_lite_instagram') ); ?>" target="_blank" title="<?php _e( 'Instagram', 'marlin-lite' ); ?>"><i class="fa fa-instagram"></i></a><?php endif; ?>
+	<?php if(get_theme_mod('marlin_lite_pinterest')) : ?><a href="<?php echo esc_url( get_theme_mod('marlin_lite_pinterest') ); ?>" target="_blank" title="<?php _e( 'Pinterest', 'marlin-lite' ); ?>"><i class="fa fa-pinterest"></i></a><?php endif; ?>
+</div>

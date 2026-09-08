@@ -14,20 +14,10 @@
 	<meta name="google-site-verification" content="77jQE7caZKFivSIpqU5ExPMDa8lwPQ1fRbvYKotzEos" />
 	<link rel="profile" href="http://gmpg.org/xfn/11" />
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-	<link rel="icon" href="/wp-content/themes/marlin-lite/images/favicon.png">
+	<link rel="icon" href="/cms/wp-content/themes/marlin-lite/images/favicon.png">
 	<?php wp_head(); ?>
 	
 </head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-TEP0L3FEL2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-TEP0L3FEL2');
-  gtag('config', 'UA-135278012-1');
-</script>
 	
 <body <?php body_class(); ?>>
     <div id="wrapper">
@@ -72,7 +62,7 @@
 					<?php if(is_front_page()) : ?>
 					<div class="head_backimg">
 						<p class="header_pic2">
-						<img src="/wp-content/themes/marlin-lite/images/top_framesp.png">
+						<img src="/cms/wp-content/themes/marlin-lite/images/top_framesp.png">
 						</p>
 					</div>
 					<?php endif; ?>

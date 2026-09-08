@@ -14,27 +14,26 @@ $args = array(
 	'posts_per_page' => 8, // 園からのお知らせ：表示させる記事数
 	'date_query' => array(
         array(
-            'after' => '1 year ago',
+            'after' => '1 month ago',
             'inclusive' => true,
         ),
     ),
 );
-
+$args = get_posts( $args );
 $news_link = $cfs->get('news_link');
 ?>
 
 <div id="home-main">
 	
 	<p class="news_upbar">
-		<img src="/wp-content/themes/marlin-lite/images/news_upbar1.png">
+		<img src="/cms/wp-content/themes/marlin-lite/images/news_upbar1.png">
 	</p>
 	<p class="news_title">
 		園からのおしらせ
 	</p>
 
 	<div class="main_news">
-		<?php query_posts( $args );
-		if ( have_posts() ) : ?>
+		<?php query_posts( $args ); ?>
 		<table>
 		<tbody>
 			<?php while ( have_posts() ) : the_post(); ?>
@@ -42,12 +41,12 @@ $news_link = $cfs->get('news_link');
 					<td>
 						<?php	$total = date( 'U',( $today - get_the_time('U') ) ) / 86400;
 								if( $days > $total ){?>
-							<img src="/wp-content/themes/marlin-lite/images/new_mark.png" class="new_mark" alt="new" title="NEW">
+							<img src="/cms/wp-content/themes/marlin-lite/images/new_mark.png" class="new_mark" alt="new" title="NEW">
 						<?php	} ?>
 					</td>
 					<td><?php the_time('Y年n月j日(D)'); ?></td>
 					<?php if ( $news_link ) : ?>
-					<td><a href="<?php echo $news_link; ?>"><?php the_title(); ?></a></td>
+					<td><a href="<?php echo $news_link; ?>" target="_blank"><?php the_title(); ?></a></td>
 					<?php else : ?>
 					<td><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></td>
 					<?php endif; ?>
@@ -55,9 +54,6 @@ $news_link = $cfs->get('news_link');
 			<?php endwhile;?>
 			</tbody>
 		</table>
-		<?php else : ?>
-			<p>現在お知らせする情報はありません</p>
-		<?php endif; ?>
 	</div>
 	<p class="disaster_write" style="margin-bottom: 1.5%;">
 		<a href="<?php echo get_stylesheet_directory_uri() ; ?>/assets/pdf/complaint-esolution-20260907.pdf" target="_blank"><font color="#36af38"><u><b>令和５年度〜７年度の苦情解決について</b></u></font></a>
@@ -72,14 +68,14 @@ $news_link = $cfs->get('news_link');
 </div>
 
 	<p class="news_downbar">
-		<img src="/wp-content/themes/marlin-lite/images/news_downbar1.png">
+		<img src="/cms/wp-content/themes/marlin-lite/images/news_downbar1.png">
 	</p>
 
 	<div class="topics_area">
 		<p class="disaster_news">
-			<img src="/wp-content/themes/marlin-lite/images/flag1.png" alt="和光園" class="guide-titleber">
+			<img src="/cms/wp-content/themes/marlin-lite/images/flag1.png" alt="和光園" class="guide-titleber">
 			入園受付中
-			<img src="/wp-content/themes/marlin-lite/images/flag1.png" alt="和光園" class="guide-titleber">
+			<img src="/cms/wp-content/themes/marlin-lite/images/flag1.png" alt="和光園" class="guide-titleber">
 		</p>
 		<p class="disaster_write" style="margin-bottom: 2%;">
 			<b>〇１号認定</b><br>
@@ -109,11 +105,16 @@ $news_link = $cfs->get('news_link');
 		<p class="disaster_write" style="margin-bottom: 2%;">令和５年度の施設関係者評価が実施されました。<br>当園の評価内容につきましては下記資料をご覧ください。</p>
 		<p class="disaster_write" style="text-align:center;">
 			2024年1月23日(火)　<br class="br-sp">
-			<a href="/wp-content/uploads/2024/01/evaluation-r5.pdf" target="_blank">
-				<img src="/wp-content/themes/marlin-lite/images/pdf_icon.png" class="pdf_icon">
+			<a href="/cms/wp-content/uploads/2024/01/evaluation-r5.pdf" target="_blank">
+				<img src="/cms/wp-content/themes/marlin-lite/images/pdf_icon.png" class="pdf_icon">
 				令和５年度　施設関係者評価を見る
 			</a>
 		</p>
+	</div> -->
+
+	<!-- <div class="disaster_area">
+		<p class="disaster_news">災害情報</p>
+		<p class="disaster_write">　2018年6月19日(火)　<br class="br-sp">大阪北部地震での今後の対応について</p>
 	</div> -->
 	
 <div id="nursing">
@@ -148,11 +149,11 @@ $news_link = $cfs->get('news_link');
 	<p class="green">5.豊かな感性や五感を育てる力</p>
 </div>
 
-<img src="/wp-content/themes/marlin-lite/images/baloon_red.png" alt="和光園 5つの力" class="bal_red2">
-		<img src="/wp-content/themes/marlin-lite/images/baloon_yellow.png" alt="和光園 5つの力" class="bal_yellow">
-		<img src="/wp-content/themes/marlin-lite/images/baloon_orange.png" alt="和光園 5つの力" class="bal_orange">
-		<img src="/wp-content/themes/marlin-lite/images/baloon_blue.png" alt="和光園 5つの力" class="bal_blue">
-		<img src="/wp-content/themes/marlin-lite/images/baloon_green.png" alt="和光園 5つの力" class="bal_green">
+<img src="/cms/wp-content/themes/marlin-lite/images/baloon_red.png" alt="和光園 5つの力" class="bal_red2">
+		<img src="/cms/wp-content/themes/marlin-lite/images/baloon_yellow.png" alt="和光園 5つの力" class="bal_yellow">
+		<img src="/cms/wp-content/themes/marlin-lite/images/baloon_orange.png" alt="和光園 5つの力" class="bal_orange">
+		<img src="/cms/wp-content/themes/marlin-lite/images/baloon_blue.png" alt="和光園 5つの力" class="bal_blue">
+		<img src="/cms/wp-content/themes/marlin-lite/images/baloon_green.png" alt="和光園 5つの力" class="bal_green">
 	</div>
 </div>
 

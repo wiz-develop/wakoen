@@ -39,9 +39,9 @@ Template Name:overview
 				<section>
 					<h3 class="rinen_title">事業について</h3>
 					<ul class="rinen_text">
-						<li><a href="/wp-content/themes/marlin-lite/download/business-plan.pdf" target="_blank" rel="noopener noreferrer"><img class="info_pdf_icon" src="/wp-content/themes/marlin-lite/images/pdf_icon_pink.png" alt="pdf_icon">令和6年度 事業計画書</a></li>
-						<li><a href="/wp-content/themes/marlin-lite/download/business-budget.pdf" target="_blank" rel="noopener noreferrer"><img class="info_pdf_icon" src="/wp-content/themes/marlin-lite/images/pdf_icon_pink.png" alt="pdf_icon">令和6年度 予算</a></li>
-						<li><a href="/wp-content/themes/marlin-lite/download/business-report.pdf" target="_blank" rel="noopener noreferrer"><img class="info_pdf_icon" src="/wp-content/themes/marlin-lite/images/pdf_icon_pink.png" alt="pdf_icon">令和5年度 事業報告</a></li>
+						<li><a href="/cms/wp-content/themes/marlin-lite/download/business-plan.pdf" target="_blank" rel="noopener noreferrer"><img class="info_pdf_icon" src="/cms/wp-content/themes/marlin-lite/images/pdf_icon_pink.png" alt="pdf_icon">令和6年度 事業計画書</a></li>
+						<li><a href="/cms/wp-content/themes/marlin-lite/download/business-budget.pdf" target="_blank" rel="noopener noreferrer"><img class="info_pdf_icon" src="/cms/wp-content/themes/marlin-lite/images/pdf_icon_pink.png" alt="pdf_icon">令和6年度 予算</a></li>
+						<li><a href="/cms/wp-content/themes/marlin-lite/download/business-report.pdf" target="_blank" rel="noopener noreferrer"><img class="info_pdf_icon" src="/cms/wp-content/themes/marlin-lite/images/pdf_icon_pink.png" alt="pdf_icon">令和5年度 事業報告</a></li>
 					</ul>
 				</section>
 			</div>
@@ -109,7 +109,7 @@ Template Name:overview
 
 				<tr>
 					<th class="view_write" style="border-bottom-style:none;"><nobr>重要事項説明書</nobr></th>
-					<td class="view_write write_area" style="border-bottom-style:none;"><a href="/wp-content/themes/marlin-lite/download/important-information-manual.pdf" target="_blank" rel="noopener noreferrer"><img class="info_pdf_icon" src="/wp-content/themes/marlin-lite/images/pdf_icon_pink.png" alt="pdf_icon">重要事項説明書</a></td>
+					<td class="view_write write_area" style="border-bottom-style:none;"><a href="/cms/wp-content/themes/marlin-lite/download/important-information-manual.pdf" target="_blank" rel="noopener noreferrer"><img class="info_pdf_icon" src="/cms/wp-content/themes/marlin-lite/images/pdf_icon_pink.png" alt="pdf_icon">重要事項説明書</a></td>
 				</tr>
 			</table>
 		</section>
