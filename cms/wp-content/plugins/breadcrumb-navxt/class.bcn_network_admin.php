@@ -1,6 +1,6 @@
 <?php
 /*
-	Copyright 2015-2018  John Havlik  (email : john.havlik@mtekk.us)
+	Copyright 2015-2025  John Havlik  (email : john.havlik@mtekk.us)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -22,13 +22,14 @@ if(!class_exists('bcn_admin'))
 {
 	require_once(dirname(__FILE__) . '/class.bcn_admin.php');
 }
+use mtekk\adminKit\{adminKit, form, message, setting};
 /**
  * The administrative interface class 
  * 
  */
 class bcn_network_admin extends bcn_admin
 {
-	const version = '6.1.0';
+	const version = breadcrumb_navxt::version;
 	protected $full_name = 'Breadcrumb NavXT Network Settings';
 	protected $access_level = 'manage_network_options';
 	/**
@@ -36,16 +37,20 @@ class bcn_network_admin extends bcn_admin
 	 * @param bcn_breadcrumb_trail $breadcrumb_trail a breadcrumb trail object
 	 * @param string $basename The basename of the plugin
 	 */
-	function __construct(bcn_breadcrumb_trail &$breadcrumb_trail, $basename)
+	public function __construct(array &$opts, $basename, array &$settings)
 	{
 		//We're going to make sure we load the parent's constructor
-		parent::__construct($breadcrumb_trail, $basename);
+		parent::__construct($opts, $basename, $settings);
 		//Change to the proper name
 		$this->full_name = __('Breadcrumb NavXT Network Settings', 'breadcrumb-navxt');
 		//Remove the hook added by the parent as we don't want this classes settings page everywhere
 		remove_action('admin_menu', array($this, 'add_page'));
 		//Replace with the network_admin hook
 		add_action('network_admin_menu', array($this, 'add_page'));
+	}
+	public function is_network_admin()
+	{
+		return true;
 	}
 	/**
 	 * admin initialization callback function
@@ -55,26 +60,26 @@ class bcn_network_admin extends bcn_admin
 	 * @since  3.2.0
 	 * @return void
 	 */
-	function init()
+	public function init()
 	{
 		//We're going to make sure we run the parent's version of this function as well
 		parent::init();
 	}
-	function wp_loaded()
+	public function wp_loaded()
 	{
 		parent::wp_loaded();
 	}
 	/**
 	 * Return the URL of the settings page for the plugin
 	 */
-	function admin_url()
+	public function admin_url()
 	{
 		return admin_url('network/settings.php?page=' . $this->identifier);
 	}
 	/**
 	 * Adds the adminpage the menu and the nice little settings link
 	 */
-	function add_page()
+	public function add_page()
 	{
 		//Add the submenu page to "settings" menu
 		$hookname = add_submenu_page('settings.php', $this->full_name, $this->short_name, $this->access_level, $this->identifier, array($this, 'admin_page'));
@@ -92,12 +97,32 @@ class bcn_network_admin extends bcn_admin
 		}
 	}
 	/**
+	 * help action hook function
+	 *
+	 * @return string
+	 *
+	 */
+	public function help()
+	{
+		$screen = get_current_screen();
+		//Exit early if the add_help_tab function doesn't exist
+		if(!method_exists($screen, 'add_help_tab'))
+		{
+			return;
+		}
+		//Add contextual help on current screen
+		if($screen->id == 'settings_page_' . $this->identifier . '-network')
+		{
+			$this->help_contents($screen);
+		}
+	}
+	/**
 	 * Have to hook into get_option and replace with network wide alternate
 	 * 
 	 * @param string $option The name of the option to retrieve
 	 * @return mixed The value of the option
 	 */
-	function get_option($option)
+	public function get_option($option)
 	{
 		return get_site_option($option);
 	}
@@ -108,7 +133,7 @@ class bcn_network_admin extends bcn_admin
 	 * @param mixed $newvalue The new value to set the option to
 	 * 
 	 */
-	function update_option($option, $newvalue)
+	public function update_option($option, $newvalue, $autoload = null)
 	{
 		return update_site_option($option, $newvalue);
 	}
@@ -121,7 +146,7 @@ class bcn_network_admin extends bcn_admin
 	 * @param string $autoload Whether or not to autoload the option, it's a string because WP is special
 	 * 
 	 */
-	function add_option($option, $value = '', $deprecated = '', $autoload = 'yes')
+	public function add_option($option, $value = '', $deprecated = '', $autoload = 'yes')
 	{
 		return add_site_option($option, $value);
 	}
@@ -130,20 +155,20 @@ class bcn_network_admin extends bcn_admin
 	 * 
 	 * @param string $option The name of the option to delete
 	 */
-	function delete_option($option)
+	public function delete_option($option)
 	{
 		return delete_site_option($option);
 	}
 	/**
 	 * A message function that checks for the BCN_SETTINGS_* define statement
 	 */
-	function multisite_settings_warn()
+	public function multisite_settings_warn()
 	{
 		if(is_multisite())
 		{
 			if(defined('BCN_SETTINGS_USE_LOCAL') && BCN_SETTINGS_USE_LOCAL)
 			{
-				$this->messages[] = new mtekk_adminKit_message(esc_html__('Warning: Individual site settings will override any settings set in this page.', 'breadcrumb-navxt'), 'warning', true, $this->unique_prefix . '_msg_ns_isiteoveride');
+				$this->messages[] = new message(esc_html__('Warning: Individual site settings will override any settings set in this page.', 'breadcrumb-navxt'), 'warning', true, $this->unique_prefix . '_msg_ns_isiteoveride');
 			}
 			else if(defined('BCN_SETTINGS_USE_NETWORK') && BCN_SETTINGS_USE_NETWORK)
 			{
@@ -151,24 +176,24 @@ class bcn_network_admin extends bcn_admin
 			}
 			else if(defined('BCN_SETTINGS_FAVOR_LOCAL') && BCN_SETTINGS_FAVOR_LOCAL)
 			{
-				$this->messages[] = new mtekk_adminKit_message(esc_html__('Warning: Individual site settings may override any settings set in this page.', 'breadcrumb-navxt'), 'warning', true, $this->unique_prefix . '_msg_ns_isitemayoveride');
+				$this->messages[] = new message(esc_html__('Warning: Individual site settings may override any settings set in this page.', 'breadcrumb-navxt'), 'warning', true, $this->unique_prefix . '_msg_ns_isitemayoveride');
 			}
 			else if(defined('BCN_SETTINGS_FAVOR_NETWORK') && BCN_SETTINGS_FAVOR_NETWORK)
 			{
-				$this->messages[] = new mtekk_adminKit_message(esc_html__('Warning: Individual site settings may override any settings set in this page.', 'breadcrumb-navxt'), 'warning', true, $this->unique_prefix . '_msg_ns_nsmayoveride');
+				$this->messages[] = new message(esc_html__('Warning: Individual site settings may override any settings set in this page.', 'breadcrumb-navxt'), 'warning', true, $this->unique_prefix . '_msg_ns_nsmayoveride');
 			}
 			//Fall through if no settings mode was set
 			else
 			{
-				$this->messages[] = new mtekk_adminKit_message(esc_html__('Warning: No BCN_SETTINGS_* define statement found, defaulting to BCN_SETTINGS_USE_LOCAL.', 'breadcrumb-navxt'), 'warning', true, $this->unique_prefix . '_msg_ns_nosetting');
-				$this->messages[] = new mtekk_adminKit_message(esc_html__('Warning: Individual site settings will override any settings set in this page.', 'breadcrumb-navxt'), 'warning', true, $this->unique_prefix . '_msg_ns_isiteoveride');
+				$this->messages[] = new message(esc_html__('Warning: No BCN_SETTINGS_* define statement found, defaulting to BCN_SETTINGS_USE_LOCAL.', 'breadcrumb-navxt'), 'warning', true, $this->unique_prefix . '_msg_ns_nosetting');
+				$this->messages[] = new message(esc_html__('Warning: Individual site settings will override any settings set in this page.', 'breadcrumb-navxt'), 'warning', true, $this->unique_prefix . '_msg_ns_isiteoveride');
 			}
 		}
 	}
 	/**
 	 * A message function that checks for deprecated settings that are set and warns the user
 	 */
-	function deprecated_settings_warn()
+	public function deprecated_settings_warn()
 	{
 		parent::deprecated_settings_warn();
 	}
@@ -177,7 +202,7 @@ class bcn_network_admin extends bcn_admin
 	 * 
 	 * @return boool Whether or not the blog options should be disabled
 	 */
-	function maybe_disable_blog_options()
+	public function maybe_disable_blog_options()
 	{
 		return false;
 	}
@@ -186,7 +211,7 @@ class bcn_network_admin extends bcn_admin
 	 * 
 	 * @return bool Whether or not the mainsite options should be disabled
 	 */
-	function maybe_disable_mainsite_options()
+	public function maybe_disable_mainsite_options()
 	{
 		return false;
 	}

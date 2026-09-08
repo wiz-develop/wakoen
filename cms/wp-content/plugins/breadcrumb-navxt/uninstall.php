@@ -17,12 +17,12 @@
  * breadcrumb navxt (until 3.3) constsisted of two plugins:
  *
  *	1.) breadcrumb_navxt_class.php / Core
- *  2.) breadcrumb_navxt_admin.php / Adminstration Interface
+ *  2.) breadcrumb_navxt_admin.php / Administration Interface
  *  
  * @author Tom Klingenberg
  */
 /*  
-	Copyright 2010-2018  John Havlik  (email : john.havlik@mtekk.us)
+	Copyright 2010-2025  John Havlik  (email : john.havlik@mtekk.us)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -47,7 +47,7 @@ if(!defined('WP_UNINSTALL_PLUGIN'))
 	header("Status: 404 Not Found");
 	die();
 }
-require_once(dirname(__FILE__) . '/includes/class.mtekk_adminkit_uninstaller.php');
+require_once(dirname(__FILE__) . '/includes/adminKit/class-mtekk_adminkit_uninstaller.php');
 
 /**
  * Breadcrumb NavXT uninstaller class
@@ -94,10 +94,8 @@ class bcn_uninstaller extends mtekk_adminKit_uninstaller
 		{
 			require_once($this->_get_plugin_path());
 		}
-		//Initalize $breadcrumb_navxt so we can use it
-		$bcn_breadcrumb_trail = new bcn_breadcrumb_trail();
 		//Let's make an instance of our object takes care of everything
-		$breadcrumb_navxt = new breadcrumb_navxt($bcn_breadcrumb_trail);
+		$breadcrumb_navxt = new breadcrumb_navxt();
 		//Uninstall
 		return $breadcrumb_navxt->uninstall();
 	}	
@@ -105,7 +103,7 @@ class bcn_uninstaller extends mtekk_adminKit_uninstaller
 	/**
 	 * uninstall method
 	 * 
-	 * @return bool wether or not uninstall did run successfull.
+	 * @return bool whether or not uninstall did run successful.
 	 */
 	public function uninstall()
 	{
