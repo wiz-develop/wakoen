@@ -1,4 +1,10 @@
-/* eslint no-magic-numbers: ["error", { "ignore": [-1, 0, 1] }] */
+/**
+ * @output wp-admin/js/theme-plugin-editor.js
+ */
+
+/* eslint-env es2020 */
+
+/* eslint no-magic-numbers: ["error", { "ignore": [-1, 0, 1, 9, 1000] }] */
 
 if ( ! window.wp ) {
 	window.wp = {};
@@ -6,17 +12,10 @@ if ( ! window.wp ) {
 
 wp.themePluginEditor = (function( $ ) {
 	'use strict';
-	var component, TreeLinks;
+	var component, TreeLinks,
+		__ = wp.i18n.__, _n = wp.i18n._n, sprintf = wp.i18n.sprintf;
 
 	component = {
-		l10n: {
-			lintError: {
-				singular: '',
-				plural: ''
-			},
-			saveAlert: '',
-			saveError: ''
-		},
 		codeEditor: {},
 		instance: null,
 		noticeElements: {},
@@ -30,9 +29,9 @@ wp.themePluginEditor = (function( $ ) {
 	 * @since 4.9.0
 	 *
 	 * @param {jQuery}         form - Form element.
-	 * @param {object}         settings - Settings.
-	 * @param {object|boolean} settings.codeEditor - Code editor settings (or `false` if syntax highlighting is disabled).
-	 * @returns {void}
+	 * @param {Object}         settings - Settings.
+	 * @param {Object|boolean} settings.codeEditor - Code editor settings (or `false` if syntax highlighting is disabled).
+	 * @return {void}
 	 */
 	component.init = function init( form, settings ) {
 
@@ -49,6 +48,8 @@ wp.themePluginEditor = (function( $ ) {
 		component.textarea = component.form.find( '#newcontent' );
 		component.textarea.on( 'change', component.onChange );
 		component.warning = $( '.file-editor-warning' );
+		component.docsLookUpButton = component.form.find( '#docs-lookup' );
+		component.docsLookUpList = component.form.find( '#docs-list' );
 
 		if ( component.warning.length > 0 ) {
 			component.showWarning();
@@ -69,9 +70,30 @@ wp.themePluginEditor = (function( $ ) {
 
 		$( window ).on( 'beforeunload', function() {
 			if ( component.dirty ) {
-				return component.l10n.saveAlert;
+				return __( 'The changes you made will be lost if you navigate away from this page.' );
 			}
 			return undefined;
+		} );
+
+		component.docsLookUpList.on( 'change', function() {
+			var option = $( this ).val();
+			if ( '' === option ) {
+				component.docsLookUpButton.prop( 'disabled', true );
+			} else {
+				component.docsLookUpButton.prop( 'disabled', false );
+			}
+		} );
+
+		// Initiate saving the file when not focused in CodeMirror or when the user has syntax highlighting turned off.
+		$( window ).on( 'keydown', function( event ) {
+			if (
+				( event.ctrlKey || event.metaKey ) &&
+				( 's' === event.key.toLowerCase() ) &&
+				( ! component.instance || ! component.instance.codemirror.hasFocus() )
+			) {
+				event.preventDefault();
+				component.form.trigger( 'submit' );
+			}
 		} );
 	};
 
@@ -79,7 +101,7 @@ wp.themePluginEditor = (function( $ ) {
 	 * Set up and display the warning modal.
 	 *
 	 * @since 4.9.0
-	 * @returns {void}
+	 * @return {void}
 	 */
 	component.showWarning = function() {
 		// Get the text within the modal.
@@ -93,7 +115,7 @@ wp.themePluginEditor = (function( $ ) {
 		// Reveal the modal and set focus on the go back button.
 		component.warning
 			.removeClass( 'hidden' )
-			.find( '.file-editor-warning-go-back' ).focus();
+			.find( '.file-editor-warning-go-back' ).trigger( 'focus' );
 		// Get the links and buttons within the modal.
 		component.warningTabbables = component.warning.find( 'a, button' );
 		// Attach event handlers.
@@ -109,8 +131,8 @@ wp.themePluginEditor = (function( $ ) {
 	 * Constrain tabbing within the warning modal.
 	 *
 	 * @since 4.9.0
-	 * @param {object} event jQuery event object.
-	 * @returns {void}
+	 * @param {Object} event jQuery event object.
+	 * @return {void}
 	 */
 	component.constrainTabbing = function( event ) {
 		var firstTabbable, lastTabbable;
@@ -135,7 +157,7 @@ wp.themePluginEditor = (function( $ ) {
 	 * Dismiss the warning modal.
 	 *
 	 * @since 4.9.0
-	 * @returns {void}
+	 * @return {void}
 	 */
 	component.dismissWarning = function() {
 
@@ -153,7 +175,7 @@ wp.themePluginEditor = (function( $ ) {
 	 * Callback for when a change happens.
 	 *
 	 * @since 4.9.0
-	 * @returns {void}
+	 * @return {void}
 	 */
 	component.onChange = function() {
 		component.dirty = true;
@@ -165,7 +187,7 @@ wp.themePluginEditor = (function( $ ) {
 	 *
 	 * @since 4.9.0
 	 * @param {jQuery.Event} event - Event.
-	 * @returns {void}
+	 * @return {void}
 	 */
 	component.submit = function( event ) {
 		var data = {}, request;
@@ -183,7 +205,11 @@ wp.themePluginEditor = (function( $ ) {
 			return;
 		}
 
-		// Scroll ot the line that has the error.
+		if ( component.instance && component.instance.updateErrorNotice ) {
+			component.instance.updateErrorNotice();
+		}
+
+		// Scroll to the line that has the error.
 		if ( component.lintErrors.length ) {
 			component.instance.codemirror.setCursor( component.lintErrors[0].from.line );
 			return;
@@ -218,7 +244,7 @@ wp.themePluginEditor = (function( $ ) {
 			var notice = $.extend(
 				{
 					code: 'save_error',
-					message: component.l10n.saveError
+					message: __( 'An error occurred while saving your changes. Please try again. If the problem persists, you may need to manually update the file via FTP.' )
 				},
 				response,
 				{
@@ -246,13 +272,13 @@ wp.themePluginEditor = (function( $ ) {
 	 *
 	 * @since 4.9.0
 	 *
-	 * @param {object}   notice - Notice.
+	 * @param {Object}   notice - Notice.
 	 * @param {string}   notice.code - Code.
 	 * @param {string}   notice.type - Type.
 	 * @param {string}   notice.message - Message.
 	 * @param {boolean}  [notice.dismissible=false] - Dismissible.
 	 * @param {Function} [notice.onDismiss] - Callback for when a user dismisses the notice.
-	 * @returns {jQuery} Notice element.
+	 * @return {jQuery} Notice element.
 	 */
 	component.addNotice = function( notice ) {
 		var noticeElement;
@@ -288,7 +314,7 @@ wp.themePluginEditor = (function( $ ) {
 	 * @since 4.9.0
 	 *
 	 * @param {string} code - Notice code.
-	 * @returns {boolean} Whether a notice was removed.
+	 * @return {boolean} Whether a notice was removed.
 	 */
 	component.removeNotice = function( code ) {
 		if ( component.noticeElements[ code ] ) {
@@ -305,7 +331,7 @@ wp.themePluginEditor = (function( $ ) {
 	 * Initialize code editor.
 	 *
 	 * @since 4.9.0
-	 * @returns {void}
+	 * @return {void}
 	 */
 	component.initCodeEditor = function initCodeEditor() {
 		var codeEditorSettings, editor;
@@ -317,10 +343,10 @@ wp.themePluginEditor = (function( $ ) {
 		 *
 		 * @since 4.9.0
 		 *
-		 * @returns {void}
+		 * @return {void}
 		 */
 		codeEditorSettings.onTabPrevious = function() {
-			$( '#templateside' ).find( ':tabbable' ).last().focus();
+			$( '#templateside' ).find( ':tabbable' ).last().trigger( 'focus' );
 		};
 
 		/**
@@ -328,10 +354,10 @@ wp.themePluginEditor = (function( $ ) {
 		 *
 		 * @since 4.9.0
 		 *
-		 * @returns {void}
+		 * @return {void}
 		 */
 		codeEditorSettings.onTabNext = function() {
-			$( '#template' ).find( ':tabbable:not(.CodeMirror-code)' ).first().focus();
+			$( '#template' ).find( ':tabbable:not(.CodeMirror-code)' ).first().trigger( 'focus' );
 		};
 
 		/**
@@ -340,7 +366,7 @@ wp.themePluginEditor = (function( $ ) {
 		 * @since 4.9.0
 		 *
 		 * @param {Array} errors - List of linting errors.
-		 * @returns {void}
+		 * @return {void}
 		 */
 		codeEditorSettings.onChangeLintingErrors = function( errors ) {
 			component.lintErrors = errors;
@@ -357,23 +383,26 @@ wp.themePluginEditor = (function( $ ) {
 		 * @since 4.9.0
 		 *
 		 * @param {Array} errorAnnotations - Error annotations.
-		 * @returns {void}
+		 * @return {void}
 		 */
 		codeEditorSettings.onUpdateErrorNotice = function onUpdateErrorNotice( errorAnnotations ) {
-			var message, noticeElement;
+			var noticeElement;
 
 			component.submitButton.toggleClass( 'disabled', errorAnnotations.length > 0 );
 
 			if ( 0 !== errorAnnotations.length ) {
-				if ( 1 === errorAnnotations.length ) {
-					message = component.l10n.lintError.singular.replace( '%d', '1' );
-				} else {
-					message = component.l10n.lintError.plural.replace( '%d', String( errorAnnotations.length ) );
-				}
 				noticeElement = component.addNotice({
 					code: 'lint_errors',
 					type: 'error',
-					message: message,
+					message: sprintf(
+						/* translators: %s: Error count. */
+						_n(
+							'There is %s error which must be fixed before you can update this file.',
+							'There are %s errors which must be fixed before you can update this file.',
+							errorAnnotations.length
+						),
+						String( errorAnnotations.length )
+					),
 					dismissible: false
 				});
 				noticeElement.find( 'input[type=checkbox]' ).on( 'click', function() {
@@ -387,6 +416,16 @@ wp.themePluginEditor = (function( $ ) {
 
 		editor = wp.codeEditor.initialize( $( '#newcontent' ), codeEditorSettings );
 		editor.codemirror.on( 'change', component.onChange );
+
+		function onSaveShortcut() {
+			component.form.trigger( 'submit' );
+		}
+
+		editor.codemirror.setOption( 'extraKeys', {
+			...( editor.codemirror.getOption( 'extraKeys' ) || {} ),
+			'Ctrl-S': onSaveShortcut,
+			'Cmd-S': onSaveShortcut,
+		} );
 
 		// Improve the editor accessibility.
 		$( editor.codemirror.display.lineDiv )
@@ -409,7 +448,7 @@ wp.themePluginEditor = (function( $ ) {
 	 * Initialization of the file browser's folder states.
 	 *
 	 * @since 4.9.0
-	 * @returns {void}
+	 * @return {void}
 	 */
 	component.initFileBrowser = function initFileBrowser() {
 
@@ -476,7 +515,7 @@ wp.themePluginEditor = (function( $ ) {
 
 		var TreeitemLink = function (node, treeObj, group) {
 
-			// Check whether node is a DOM element
+			// Check whether node is a DOM element.
 			if (typeof node !== 'object') {
 				return;
 			}
@@ -681,7 +720,7 @@ wp.themePluginEditor = (function( $ ) {
 
 		TreeitemLink.prototype.handleClick = function (event) {
 
-			// only process click events that directly happened on this treeitem
+			// Only process click events that directly happened on this treeitem.
 			if (event.target !== this.domNode && event.target !== this.domNode.firstElementChild) {
 				return;
 			}
@@ -758,7 +797,7 @@ wp.themePluginEditor = (function( $ ) {
 		 */
 
 		var TreeLinks = function (node) {
-			// Check whether node is a DOM element
+			// Check whether node is a DOM element.
 			if (typeof node !== 'object') {
 				return;
 			}
@@ -797,7 +836,7 @@ wp.themePluginEditor = (function( $ ) {
 				}
 			}
 
-			// initialize pop up menus
+			// Initialize pop up menus.
 			if (!this.domNode.getAttribute('role')) {
 				this.domNode.setAttribute('role', 'tree');
 			}
@@ -949,16 +988,16 @@ wp.themePluginEditor = (function( $ ) {
 			var start, index;
 			_char = _char.toLowerCase();
 
-			// Get start index for search based on position of currentItem
+			// Get start index for search based on position of currentItem.
 			start = this.treeitems.indexOf(currentItem) + 1;
 			if (start === this.treeitems.length) {
 				start = 0;
 			}
 
-			// Check remaining slots in the menu
+			// Check remaining slots in the menu.
 			index = this.getIndexFirstChars(start, _char);
 
-			// If not found in remaining slots, check from beginning
+			// If not found in remaining slots, check from beginning.
 			if (index === -1) {
 				index = this.getIndexFirstChars(0, _char);
 			}
@@ -989,3 +1028,27 @@ wp.themePluginEditor = (function( $ ) {
 
 	return component;
 })( jQuery );
+
+/**
+ * Removed in 5.5.0, needed for back-compatibility.
+ *
+ * @since 4.9.0
+ * @deprecated 5.5.0
+ *
+ * @type {object}
+ */
+wp.themePluginEditor.l10n = wp.themePluginEditor.l10n || {
+	saveAlert: '',
+	saveError: '',
+	lintError: {
+		alternative: 'wp.i18n',
+		func: function() {
+			return {
+				singular: '',
+				plural: ''
+			};
+		}
+	}
+};
+
+wp.themePluginEditor.l10n = window.wp.deprecateL10nObject( 'wp.themePluginEditor.l10n', wp.themePluginEditor.l10n, '5.5.0' );
