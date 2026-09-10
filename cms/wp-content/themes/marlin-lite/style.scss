@@ -5623,6 +5623,15 @@ body {
     align-items: center;
     justify-content: center;
   }
+  .confirm_page_submit > p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+  }
+  .confirm_page_submit > p > br {
+    display: none;
+  }
   .none-click {
     pointer-events: none !important;
   }

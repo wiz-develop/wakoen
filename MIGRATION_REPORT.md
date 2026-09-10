@@ -73,6 +73,12 @@ WPForms Lite 2.0.1.1, and WP Multibyte Patch 2.9.3.
   `work/wakoen-migration/backups/test-before-confirmation-fix/marlin-scripts.js`
 - Confirmation-lock follow-up backup:
   `work/wakoen-migration/backups/test-before-confirmation-lock-fix/marlin-scripts.js`
+- Restored the confirmation action buttons to the production horizontal layout after Contact Form 7
+  began wrapping the two controls in an additional paragraph. The fix is scoped to
+  `.confirm_page_submit > p`, preserves the confirmation JavaScript, and hides only the generated
+  line break between the back and submit controls.
+- Confirmation-button CSS backup:
+  `work/wakoen-migration/backups/test-before-confirm-buttons-layout-20260910/`
 
 The test environment is behind a proxy that reports the origin request as HTTP. Its excluded,
 environment-specific `wp-config.php` therefore contains this HTTPS detection before WordPress loads:
@@ -106,6 +112,8 @@ if (
 - Database schema version matched WordPress 7.1 (`61833`).
 - PHP 7.4.33 was detected on the test environment.
 - No visible Fatal, Warning, Deprecated, Notice, or Parse errors were found on the checked pages.
+- Confirmed the live test CSS contains the horizontal confirmation-button rule and the contact page
+  still returns HTTP 200 with both `#previous` and `#submit` controls.
 - Final `wp-content/debug.log` size was zero bytes.
 - No temporary migration PHP scripts, SQL dumps, or archives remained in the public root.
 

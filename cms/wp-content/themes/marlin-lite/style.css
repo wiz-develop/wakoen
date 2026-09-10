@@ -5045,6 +5045,17 @@ textarea#message {
   justify-content: center;
 }
 
+.contact .confirm_page_submit > p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.contact .confirm_page_submit > p > br {
+  display: none;
+}
+
 .contact .none-click {
   pointer-events: none !important;
 }
