@@ -99,8 +99,16 @@ if (
 - Kept the site From address and name as `info@wakoen.ed.jp` and the existing organization name.
 - Enabled customer auto-reply for forms 397 (visit) and 391 (recruitment).
 - Form 242 (contact) already had both administrator notification and customer auto-reply enabled.
-- A non-form WordPress transport probe was accepted by `wp_mail()` with no reported error.
-- A real form submission was not generated during this work.
+- The copied production reCAPTCHA key returned score `0.00` on the test hostname and caused
+  Contact Form 7 to reject otherwise valid submissions as spam. A host-restricted MU plugin now
+  bypasses only that reCAPTCHA verdict on `wakoen.wiz-services.com`; it returns without changing
+  behavior on every other hostname.
+- A non-form WordPress transport probe to the configured WIZ administrator recipient was accepted
+  by `wp_mail()` with no reported error.
+- After the staging-only reCAPTCHA fix, a multipart submission of form 242 returned
+  `mail_sent`, stored as a non-spam Flamingo record, and handed both configured messages to the
+  local mailer. The temporary QA submission and the deliberately rejected diagnostic submission
+  were removed afterward.
 
 ## QA completed
 
@@ -114,7 +122,10 @@ if (
 - No visible Fatal, Warning, Deprecated, Notice, or Parse errors were found on the checked pages.
 - Confirmed the live test CSS contains the horizontal confirmation-button rule and the contact page
   still returns HTTP 200 with both `#previous` and `#submit` controls.
-- Final `wp-content/debug.log` size was zero bytes.
+- Confirmed form 242 returns `mail_sent` instead of the former reCAPTCHA `spam` response on the
+  staging hostname.
+- The final `wp-content/debug.log` contains only automatic-update lifecycle messages and no Fatal,
+  Warning, Deprecated, Notice, Parse, or mail errors.
 - No temporary migration PHP scripts, SQL dumps, or archives remained in the public root.
 
 ## Remaining verification
